@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Runs the ShrekAndDonkey chatbot and manages the user's task list.
+ */
 public class ShrekAndDonkey {
     public static void main(String[] args) {
         String divider = "____________________________________________________________";
@@ -18,8 +21,10 @@ public class ShrekAndDonkey {
         System.out.println("What can I do for you?");
         System.out.println(divider);
 
-        //Array of fixed size 100
+        //Done by Chat Step 1 for task 3
+        // Parallel arrays keep each task description and its done status at the same index.
         String[] array = new String[100];
+        boolean[] isDone = new boolean[100];
 
         //Added Pointer for current Count
         int pointer = 0;
@@ -35,14 +40,32 @@ public class ShrekAndDonkey {
             
             //If list is input 
             if (input.equals("list")) {
+                System.out.println(" Here are the tasks in your list:");
 
+                //Updated by chatgpt
                 //Iterate through array to get list
                 for (int i = 0; i < pointer; i++) {
-                    //+1 due to 0 index
-                    System.out.println(i+1+". " + array[i]); 
+                    String status = isDone[i] ? "[X]" : "[ ]";
+                    // Add 1 because task numbers shown to users start from 1, not 0.
+                    System.out.println(" " + (i + 1) + "." + status + " " + array[i]);
                 }
                 System.out.println(divider);
-                
+            } else if (input.equals("mark") || input.startsWith("mark ")) {
+                String taskNumberText = input.substring("mark".length()).trim();
+
+                try {
+                    int taskIndex = Integer.parseInt(taskNumberText) - 1;
+                    if (taskIndex < 0 || taskIndex >= pointer) {
+                        System.out.println(" Please enter a task number from 1 to " + pointer + ".");
+                    } else {
+                        isDone[taskIndex] = true;
+                        System.out.println(" Nice! I've marked this task as done:");
+                        System.out.println("   [X] " + array[taskIndex]);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println(" Please enter a valid task number after 'mark'.");
+                }
+                System.out.println(divider);
             }
             else{ 
                 //Added formatting
