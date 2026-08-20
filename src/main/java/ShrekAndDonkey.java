@@ -100,7 +100,7 @@ public class ShrekAndDonkey {
                 System.out.println(divider);
             } else if (input.equals("todo") || input.startsWith("todo ")) {
                 String description = input.substring("todo".length()).trim();
-                tasks[pointer] = new Task(description, "todo");
+                tasks[pointer] = new Todo(description);
                 pointer++;
                 printTaskAdded(tasks[pointer - 1], pointer);
                 System.out.println(divider);
@@ -113,7 +113,7 @@ public class ShrekAndDonkey {
                 } else {
                     String description = taskDetails.substring(0, byMarkerIndex).trim();
                     String deadline = taskDetails.substring(byMarkerIndex + "/by".length()).trim();
-                    tasks[pointer] = new Task(description, "deadline", deadline);
+                    tasks[pointer] = new Deadline(description, deadline);
                     pointer++;
                     printTaskAdded(tasks[pointer - 1], pointer);
                 }
@@ -130,14 +130,14 @@ public class ShrekAndDonkey {
                     String start = taskDetails.substring(
                             fromMarkerIndex + "/from".length(), toMarkerIndex).trim();
                     String end = taskDetails.substring(toMarkerIndex + "/to".length()).trim();
-                    tasks[pointer] = new Task(description, "event", start, end);
+                    tasks[pointer] = new Event(description, start, end);
                     pointer++;
                     printTaskAdded(tasks[pointer - 1], pointer);
                 }
                 System.out.println(divider);
             } else {
                 // Commands without a type are treated as ToDos for backward compatibility.
-                tasks[pointer] = new Task(input);
+                tasks[pointer] = new Todo(input);
                 pointer++;
                 printTaskAdded(tasks[pointer - 1], pointer);
                 System.out.println(divider);
