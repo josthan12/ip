@@ -5,6 +5,9 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String taskType;
+    protected String dateTime;
+    protected String endDateTime;
 
     /**
      * Creates a task that is initially not done.
@@ -12,8 +15,44 @@ public class Task {
      * @param description description of the task
      */
     public Task(String description) {
+        this(description, "todo");
+    }
+
+    /**
+     * Creates a task of the specified type without date/time details.
+     *
+     * @param description description of the task
+     * @param taskType type of task: todo, deadline, or event
+     */
+    public Task(String description, String taskType) {
+        this(description, taskType, "", "");
+    }
+
+    /**
+     * Creates a deadline task with its deadline stored as text.
+     *
+     * @param description description of the task
+     * @param taskType type of task
+     * @param dateTime deadline text
+     */
+    public Task(String description, String taskType, String dateTime) {
+        this(description, taskType, dateTime, "");
+    }
+
+    /**
+     * Creates an event task with its start and end stored as text.
+     *
+     * @param description description of the task
+     * @param taskType type of task
+     * @param dateTime start date/time text
+     * @param endDateTime end date/time text
+     */
+    public Task(String description, String taskType, String dateTime, String endDateTime) {
         this.description = description;
         this.isDone = false;
+        this.taskType = taskType;
+        this.dateTime = dateTime;
+        this.endDateTime = endDateTime;
     }
 
     /**
@@ -40,12 +79,36 @@ public class Task {
     }
 
     /**
-     * Returns the task in the format shown by the chatbot.
+     * Returns the letter used to identify this task's type.
      *
-     * @return status icon followed by the task description
+     * @return {@code T}, {@code D}, or {@code E}
+     */
+    public String getTaskIcon() {
+        if (this.taskType.equals("todo")) {
+            return "T";
+        } else if (this.taskType.equals("deadline")) {
+            return "D";
+        } else if (this.taskType.equals("event")) {
+            return "E";
+        } else {
+            return "?";
+        }
+    }
+
+    /**
+     * Returns the task with its type, status, description, and any timing details.
+     *
+     * @return task text in the format shown by the chatbot
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        String dateTimeDetails = "";
+        if (taskType.equals("deadline")) {
+            dateTimeDetails = " (by: " + dateTime + ")";
+        } else if (taskType.equals("event")) {
+            dateTimeDetails = " (from: " + dateTime + " to: " + endDateTime + ")";
+        }
+        return "[" + getTaskIcon() + "][" + getStatusIcon() + "] "
+                + description + dateTimeDetails;
     }
 }

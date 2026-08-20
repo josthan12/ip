@@ -4,6 +4,18 @@ import java.util.Scanner;
  * Runs the ShrekAndDonkey chatbot and manages the user's task list.
  */
 public class ShrekAndDonkey {
+    /**
+     * Prints the confirmation shown after adding a task.
+     *
+     * @param task task that was added
+     * @param taskCount number of tasks currently stored
+     */
+    private static void printTaskAdded(Task task, int taskCount) {
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+    }
+
     public static void main(String[] args) {
         String divider = "____________________________________________________________";
         //Created using ChatGPT
@@ -86,15 +98,50 @@ public class ShrekAndDonkey {
                     System.out.println(" Please enter a valid task number after 'unmark'.");
                 }
                 System.out.println(divider);
-            }
-            else{ 
-                //Added formatting
-                System.out.println("Added: " + input);
+            } else if (input.equals("todo") || input.startsWith("todo ")) {
+                String description = input.substring("todo".length()).trim();
+                tasks[pointer] = new Task(description, "todo");
+                pointer++;
+                printTaskAdded(tasks[pointer - 1], pointer);
+                System.out.println(divider);
+            } else if (input.equals("deadline") || input.startsWith("deadline ")) {
+                String taskDetails = input.substring("deadline".length()).trim();
+                int byMarkerIndex = taskDetails.indexOf("/by");
+
+                if (byMarkerIndex < 0) {
+                    System.out.println(" Please specify a deadline using /by.");
+                } else {
+                    String description = taskDetails.substring(0, byMarkerIndex).trim();
+                    String deadline = taskDetails.substring(byMarkerIndex + "/by".length()).trim();
+                    tasks[pointer] = new Task(description, "deadline", deadline);
+                    pointer++;
+                    printTaskAdded(tasks[pointer - 1], pointer);
+                }
+                System.out.println(divider);
+            } else if (input.equals("event") || input.startsWith("event ")) {
+                String taskDetails = input.substring("event".length()).trim();
+                int fromMarkerIndex = taskDetails.indexOf("/from");
+                int toMarkerIndex = taskDetails.indexOf("/to", fromMarkerIndex + "/from".length());
+
+                if (fromMarkerIndex < 0 || toMarkerIndex < 0) {
+                    System.out.println(" Please specify an event using /from and /to.");
+                } else {
+                    String description = taskDetails.substring(0, fromMarkerIndex).trim();
+                    String start = taskDetails.substring(
+                            fromMarkerIndex + "/from".length(), toMarkerIndex).trim();
+                    String end = taskDetails.substring(toMarkerIndex + "/to".length()).trim();
+                    tasks[pointer] = new Task(description, "event", start, end);
+                    pointer++;
+                    printTaskAdded(tasks[pointer - 1], pointer);
+                }
+                System.out.println(divider);
+            } else {
+                // Commands without a type are treated as ToDos for backward compatibility.
                 tasks[pointer] = new Task(input);
                 pointer++;
+                printTaskAdded(tasks[pointer - 1], pointer);
                 System.out.println(divider);
-                
-            } 
+            }
             input = scanner.nextLine();
         }
 
