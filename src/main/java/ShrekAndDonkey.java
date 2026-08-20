@@ -100,22 +100,44 @@ public class ShrekAndDonkey {
                 System.out.println(divider);
             } else if (input.equals("todo") || input.startsWith("todo ")) {
                 String description = input.substring("todo".length()).trim();
-                tasks[pointer] = new Todo(description);
-                pointer++;
-                printTaskAdded(tasks[pointer - 1], pointer);
-                System.out.println(divider);
+                try{
+                    if (description.isEmpty()) {
+                        throw new ShrekAndDonkeyException("todo");
+
+                    }
+                    else{
+                        tasks[pointer] = new Todo(description);
+                        pointer++;
+                        printTaskAdded(tasks[pointer - 1], pointer);
+                        System.out.println(divider);
+                    }
+
+                }
+                catch (ShrekAndDonkeyException e){
+                    System.out.println("OOPS!!UWU description of a " + e.getMessage() + " cannot be empty UwU");
+                    System.out.println(divider);
+                }
             } else if (input.equals("deadline") || input.startsWith("deadline ")) {
                 String taskDetails = input.substring("deadline".length()).trim();
                 int byMarkerIndex = taskDetails.indexOf("/by");
 
-                if (byMarkerIndex < 0) {
-                    System.out.println(" Please specify a deadline using /by.");
-                } else {
-                    String description = taskDetails.substring(0, byMarkerIndex).trim();
-                    String deadline = taskDetails.substring(byMarkerIndex + "/by".length()).trim();
-                    tasks[pointer] = new Deadline(description, deadline);
-                    pointer++;
-                    printTaskAdded(tasks[pointer - 1], pointer);
+                //Exception only checks for missing description and date for deadline(copied format from todo)
+                try {
+                    if (byMarkerIndex < 0) {
+                        System.out.println(" Please specify a deadline using /by.");
+                    } else {
+                        String description = taskDetails.substring(0, byMarkerIndex).trim();
+                        if (description.isEmpty()) {
+                            throw new ShrekAndDonkeyException("deadline");
+                        }
+                        String deadline = taskDetails.substring(byMarkerIndex + "/by".length()).trim();
+                        tasks[pointer] = new Deadline(description, deadline);
+                        pointer++;
+                        printTaskAdded(tasks[pointer - 1], pointer);
+                    }
+                } catch (ShrekAndDonkeyException e) {
+                    System.out.println("OOPS!!UWU description of a "
+                            + e.getMessage() + " cannot be empty UwU");
                 }
                 System.out.println(divider);
             } else if (input.equals("event") || input.startsWith("event ")) {
@@ -123,23 +145,30 @@ public class ShrekAndDonkey {
                 int fromMarkerIndex = taskDetails.indexOf("/from");
                 int toMarkerIndex = taskDetails.indexOf("/to", fromMarkerIndex + "/from".length());
 
-                if (fromMarkerIndex < 0 || toMarkerIndex < 0) {
-                    System.out.println(" Please specify an event using /from and /to.");
-                } else {
-                    String description = taskDetails.substring(0, fromMarkerIndex).trim();
-                    String start = taskDetails.substring(
-                            fromMarkerIndex + "/from".length(), toMarkerIndex).trim();
-                    String end = taskDetails.substring(toMarkerIndex + "/to".length()).trim();
-                    tasks[pointer] = new Event(description, start, end);
-                    pointer++;
-                    printTaskAdded(tasks[pointer - 1], pointer);
+                //Exception only checks for missing deadline and description in Events(copied format from todo)
+                try {
+                    if (fromMarkerIndex < 0 || toMarkerIndex < 0) {
+                        System.out.println(" Please specify an event using /from and /to.");
+                    } else {
+                        String description = taskDetails.substring(0, fromMarkerIndex).trim();
+                        if (description.isEmpty()) {
+                            throw new ShrekAndDonkeyException("event");
+                        }
+                        String start = taskDetails.substring(
+                                fromMarkerIndex + "/from".length(), toMarkerIndex).trim();
+                        String end = taskDetails.substring(toMarkerIndex + "/to".length()).trim();
+                        tasks[pointer] = new Event(description, start, end);
+                        pointer++;
+                        printTaskAdded(tasks[pointer - 1], pointer);
+                    }
+                } catch (ShrekAndDonkeyException e) {
+                    System.out.println("OOPS!!UWU description of a "
+                            + e.getMessage() + " cannot be empty UwU");
                 }
                 System.out.println(divider);
             } else {
-                // Commands without a type are treated as ToDos for backward compatibility.
-                tasks[pointer] = new Todo(input);
-                pointer++;
-                printTaskAdded(tasks[pointer - 1], pointer);
+
+                System.out.println("NO VALID INPUT GIVEN,PWEASE TRY AGAIN");
                 System.out.println(divider);
             }
             input = scanner.nextLine();
