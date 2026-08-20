@@ -66,6 +66,23 @@ public class ShrekAndDonkey {
                     System.out.println(" Please enter a valid task number after 'mark'.");
                 }
                 System.out.println(divider);
+                //Updated by Chatgpt
+            } else if (input.equals("unmark") || input.startsWith("unmark ")) {
+                String taskNumberText = input.substring("unmark".length()).trim();
+
+                try {
+                    int taskIndex = Integer.parseInt(taskNumberText) - 1;
+                    if (taskIndex < 0 || taskIndex >= pointer) {
+                        System.out.println(" Please enter a task number from 1 to " + pointer + ".");
+                    } else {
+                        isDone[taskIndex] = false;
+                        System.out.println(" OK, I've marked this task as not done yet:");
+                        System.out.println("   [ ] " + array[taskIndex]);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println(" Please enter a valid task number after 'unmark'.");
+                }
+                System.out.println(divider);
             }
             else{ 
                 //Added formatting
