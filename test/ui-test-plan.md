@@ -71,6 +71,167 @@ FEE FIE FOE FUMP. GET OUT OF MY SWAMP!
 ____________________________________________________________
 ```
 
+### TC-DELETE-005: Delete a completed middle task
+
+**Aim:** Verify that deleting a middle task removes and reports that exact task while preserving its done status.
+
+**Inputs:**
+```text
+todo first
+deadline second /by Sunday
+event third /from Mon /to Tue
+mark 2
+delete 2
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ ____  _              _        _              _ ____              _
+/ ___|| |__  _ __ ___| | __   / \   _ __   __| |  _ \  ___  _ __ | | _____ _   _
+\___ \| '_ \| '__/ _ \ |/ /  / _ \ | '_ \ / _` | | | |/ _ \| '_ \| |/ / _ \ | | |
+ ___) | | | | | |  __/   <  / ___ \| | | | (_| | |_| | (_) | | | |   <  __/ |_| |
+|____/|_| |_|_|  \___|_|\_\/_/   \_\_| |_|\__,_|____/ \___/|_| |_|_|\_\___|\__, |
+                                                                            |___/
+Grrr GET OUT OF MY SWAMP! Ohh, I didn't see you there stranger! I'm ShrekAndDonkey.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] first
+ Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] second (by: Sunday)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] third (from: Mon to: Tue)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [D][X] second (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+ Noted. I've removed this task:
+   [D][X] second (by: Sunday)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][ ] first
+ 2.[E][ ] third (from: Mon to: Tue)
+____________________________________________________________
+____________________________________________________________
+FEE FIE FOE FUMP. GET OUT OF MY SWAMP!
+____________________________________________________________
+```
+
+### TC-DELETE-006: Delete first, last, and only tasks
+
+**Aim:** Verify boundary deletions and confirm deleting the only remaining task leaves an empty list without crashing.
+
+**Inputs:**
+```text
+todo first
+todo second
+todo third
+delete 1
+delete 2
+delete 1
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ ____  _              _        _              _ ____              _
+/ ___|| |__  _ __ ___| | __   / \   _ __   __| |  _ \  ___  _ __ | | _____ _   _
+\___ \| '_ \| '__/ _ \ |/ /  / _ \ | '_ \ / _` | | | |/ _ \| '_ \| |/ / _ \ | | |
+ ___) | | | | | |  __/   <  / ___ \| | | | (_| | |_| | (_) | | | |   <  __/ |_| |
+|____/|_| |_|_|  \___|_|\_\/_/   \_\_| |_|\__,_|____/ \___/|_| |_|_|\_\___|\__, |
+                                                                            |___/
+Grrr GET OUT OF MY SWAMP! Ohh, I didn't see you there stranger! I'm ShrekAndDonkey.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] first
+ Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] second
+ Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] third
+ Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Noted. I've removed this task:
+   [T][ ] first
+ Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Noted. I've removed this task:
+   [T][ ] third
+ Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Noted. I've removed this task:
+   [T][ ] second
+ Now you have 0 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+____________________________________________________________
+____________________________________________________________
+FEE FIE FOE FUMP. GET OUT OF MY SWAMP!
+____________________________________________________________
+```
+
+### TC-DELETE-007: Reject invalid delete arguments
+
+**Aim:** Verify non-numeric and out-of-range delete arguments report errors without terminating the program.
+
+**Inputs:**
+```text
+delete abc
+delete 1
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ ____  _              _        _              _ ____              _
+/ ___|| |__  _ __ ___| | __   / \   _ __   __| |  _ \  ___  _ __ | | _____ _   _
+\___ \| '_ \| '__/ _ \ |/ /  / _ \ | '_ \ / _` | | | |/ _ \| '_ \| |/ / _ \ | | |
+ ___) | | | | | |  __/   <  / ___ \| | | | (_| | |_| | (_) | | | |   <  __/ |_| |
+|____/|_| |_|_|  \___|_|\_\/_/   \_\_| |_|\__,_|____/ \___/|_| |_|_|\_\___|\__, |
+                                                                            |___/
+Grrr GET OUT OF MY SWAMP! Ohh, I didn't see you there stranger! I'm ShrekAndDonkey.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+ Please enter a valid task number after 'delete'.
+____________________________________________________________
+____________________________________________________________
+ Please enter a task number from 1 to 0.
+____________________________________________________________
+____________________________________________________________
+FEE FIE FOE FUMP. GET OUT OF MY SWAMP!
+____________________________________________________________
+```
+
 ### TC-FULL-002: Preserve arbitrary timing strings
 
 **Aim:** Verify that deadline and event timing information is stored and displayed without date parsing.

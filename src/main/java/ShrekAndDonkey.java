@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Runs the ShrekAndDonkey chatbot and manages the user's task list.
@@ -34,12 +36,8 @@ public class ShrekAndDonkey {
         System.out.println(divider);
 
         // Each Task object keeps its description and done status together.
-        //Now stores Task in the array instead so each index has a state
-        Task[] tasks = new Task[100];
 
-        //Added Pointer for current Count
-        int pointer = 0;
-
+        ArrayList<Task> taskList = new ArrayList<>();
 
         //Scanning for input by user
         Scanner scanner = new Scanner(System.in);
@@ -55,9 +53,9 @@ public class ShrekAndDonkey {
 
                 //Updated by chatgpt
                 //Iterate through the task array to display the list
-                for (int i = 0; i < pointer; i++) {
+                for (int i = 0; i < taskList.size(); i++) {
                     // Add 1 because task numbers shown to users start from 1, not 0.
-                    System.out.println(" " + (i + 1) + "." + tasks[i]);
+                    System.out.println(" " + (i + 1) + "." + taskList.get(i));
                 }
                 System.out.println(divider);
             } else if (input.equals("mark") || input.startsWith("mark ")) {
@@ -66,13 +64,13 @@ public class ShrekAndDonkey {
                 //Exception handling
                 try {
                     int taskIndex = Integer.parseInt(taskNumberText) - 1;
-                    if (taskIndex < 0 || taskIndex >= pointer) {
-                        System.out.println(" Please enter a task number from 1 to " + pointer + ".");
+                    if (taskIndex < 0 || taskIndex >= taskList.size()) {
+                        System.out.println(" Please enter a task number from 1 to " + taskList.size() + ".");
                     } else {
                         //using task as state
-                        tasks[taskIndex].markAsDone();
+                        taskList.get(taskIndex).markAsDone();
                         System.out.println(" Nice! I've marked this task as done:");
-                        System.out.println("   " + tasks[taskIndex]);
+                        System.out.println("   " + taskList.get(taskIndex));
                     }
                 } catch (NumberFormatException e) {
                     System.out.println(" Please enter a valid task number after 'mark'.");
@@ -86,13 +84,14 @@ public class ShrekAndDonkey {
                 //Exception handling for unmarked
                 try {
                     int taskIndex = Integer.parseInt(taskNumberText) - 1;
-                    if (taskIndex < 0 || taskIndex >= pointer) {
-                        System.out.println(" Please enter a task number from 1 to " + pointer + ".");
+                    if (taskIndex < 0 || taskIndex >= taskList.size()) {
+                        System.out.println(" Please enter a task number from 1 to " + taskList.size()
+                                + ".");
                     } else {
                         //Using task state itself
-                        tasks[taskIndex].markAsNotDone();
+                        taskList.get(taskIndex).markAsNotDone();
                         System.out.println(" OK, I've marked this task as not done yet:");
-                        System.out.println("   " + tasks[taskIndex]);
+                        System.out.println("   " + taskList.get(taskIndex));
                     }
                 } catch (NumberFormatException e) {
                     System.out.println(" Please enter a valid task number after 'unmark'.");
@@ -106,9 +105,8 @@ public class ShrekAndDonkey {
 
                     }
                     else{
-                        tasks[pointer] = new Todo(description);
-                        pointer++;
-                        printTaskAdded(tasks[pointer - 1], pointer);
+                        taskList.add(new Todo(description));
+                        printTaskAdded(taskList.get(taskList.size()-1), taskList.size());
                         System.out.println(divider);
                     }
 
@@ -131,9 +129,8 @@ public class ShrekAndDonkey {
                             throw new ShrekAndDonkeyException("deadline");
                         }
                         String deadline = taskDetails.substring(byMarkerIndex + "/by".length()).trim();
-                        tasks[pointer] = new Deadline(description, deadline);
-                        pointer++;
-                        printTaskAdded(tasks[pointer - 1], pointer);
+                        taskList.add(new Deadline(description, deadline));
+                        printTaskAdded(taskList.get(taskList.size()-1), taskList.size());
                     }
                 } catch (ShrekAndDonkeyException e) {
                     System.out.println("OOPS!!UWU description of a "
@@ -157,16 +154,36 @@ public class ShrekAndDonkey {
                         String start = taskDetails.substring(
                                 fromMarkerIndex + "/from".length(), toMarkerIndex).trim();
                         String end = taskDetails.substring(toMarkerIndex + "/to".length()).trim();
-                        tasks[pointer] = new Event(description, start, end);
-                        pointer++;
-                        printTaskAdded(tasks[pointer - 1], pointer);
+                        taskList.add(new Event(description, start, end));
+                        printTaskAdded(taskList.get(taskList.size()-1), taskList.size());
                     }
                 } catch (ShrekAndDonkeyException e) {
                     System.out.println("OOPS!!UWU description of a "
                             + e.getMessage() + " cannot be empty UwU");
                 }
                 System.out.println(divider);
-            } else {
+            } else if (input.equals("delete") || input.startsWith("delete ")) {
+                String deleteDetails = input.substring("delete".length()).trim();
+
+                try {
+                    int deleteIndex = Integer.parseInt(deleteDetails) - 1;
+                    if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
+                        System.out.println(" Please enter a task number from 1 to " + taskList.size()
+                                + ".");
+                    } else {
+
+                        Task removedTask = taskList.remove(deleteIndex);
+                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println("   " + removedTask);
+                        System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println(" Please enter a valid task number after 'delete'.");
+                }
+                System.out.println(divider);
+            }
+
+            else {
 
                 System.out.println("NO VALID INPUT GIVEN,PWEASE TRY AGAIN");
                 System.out.println(divider);
