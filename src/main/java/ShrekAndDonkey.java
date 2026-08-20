@@ -18,6 +18,13 @@ public class ShrekAndDonkey {
         System.out.println("What can I do for you?");
         System.out.println(divider);
 
+        //Array of fixed size 100
+        String[] array = new String[100];
+
+        //Added Pointer for current Count
+        int pointer = 0;
+
+
         //Scanning for input by user
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -26,10 +33,25 @@ public class ShrekAndDonkey {
         while (!input.equals("bye")) { 
             System.out.println(divider);
             
-            //left padding String
-            String str = String.format("%10s",input);
-            System.out.println(str);
-            System.out.println(divider);
+            //If list is input 
+            if (input.equals("list")) {
+
+                //Iterate through array to get list
+                for (int i = 0; i < pointer; i++) {
+                    //+1 due to 0 index
+                    System.out.println(i+1+". " + array[i]); 
+                }
+                System.out.println(divider);
+                
+            }
+            else{ 
+                //Added formatting
+                System.out.println("Added: " + input);
+                array[pointer] = input;
+                pointer++;
+                System.out.println(divider);
+                
+            } 
             input = scanner.nextLine();
         }
 
