@@ -63,4 +63,20 @@ public class TaskList {
     public List<Task> getTasks() {
         return Collections.unmodifiableList(tasks);
     }
+
+    /**
+     * Returns all tasks whose description contains the specified keyword.
+     *
+     * @param keyword search term to look for in task descriptions
+     * @return list of matching tasks
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return Collections.unmodifiableList(matchingTasks);
+    }
 }

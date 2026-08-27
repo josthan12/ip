@@ -5,6 +5,7 @@ import shrekanddonkey.command.DeadlineCommand;
 import shrekanddonkey.command.DeleteCommand;
 import shrekanddonkey.command.EventCommand;
 import shrekanddonkey.command.ExitCommand;
+import shrekanddonkey.command.FindCommand;
 import shrekanddonkey.command.ListCommand;
 import shrekanddonkey.command.MarkCommand;
 import shrekanddonkey.command.ReadCommand;
@@ -72,6 +73,9 @@ public class ShrekAndDonkey {
             } else if (commandType == Parser.CommandType.DELETE) {
                 new DeleteCommand(Parser.getArguments(input, "delete"))
                         .execute(taskList, ui, storage);
+            } else if (commandType == Parser.CommandType.FIND) {
+                new FindCommand(Parser.getArguments(input, "find"))
+                        .execute(taskList, ui, storage);
             } else if (commandType == Parser.CommandType.WRITE) {
                 new WriteCommand().execute(taskList, ui, storage);
             } else if (commandType == Parser.CommandType.READ) {
@@ -87,4 +91,3 @@ public class ShrekAndDonkey {
 
     }
 }
-

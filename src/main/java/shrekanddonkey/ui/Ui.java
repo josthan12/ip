@@ -94,5 +94,16 @@ public class Ui {
             showMessage(" " + (i + 1) + "." + tasks.get(i));
         }
     }
-}
 
+    /**
+     * Displays all matching tasks with one-based numbering.
+     *
+     * @param tasks matching tasks to display
+     */
+    public void showMatchingTasks(List<Task> tasks) {
+        showMessage(" Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            showMessage(" " + (i + 1) + "." + tasks.get(i));
+        }
+    }
+}

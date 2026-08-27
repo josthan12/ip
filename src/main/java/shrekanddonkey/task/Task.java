@@ -43,6 +43,15 @@ public class Task {
     }
 
     /**
+     * Returns the description of this task.
+     *
+     * @return description text
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Returns the shared status and description portion of a task.
      *
      * @return task text in the format shown by the chatbot

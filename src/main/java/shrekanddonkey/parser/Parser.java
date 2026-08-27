@@ -34,6 +34,8 @@ public class Parser {
         EVENT,
         /** Deletes a task. */
         DELETE,
+        /** Finds tasks matching a keyword. */
+        FIND,
         /** Saves tasks to storage. */
         WRITE,
         /** Reads a file. */
@@ -75,6 +77,8 @@ public class Parser {
             return CommandType.EVENT;
         } else if (hasCommandWord(input, "delete")) {
             return CommandType.DELETE;
+        } else if (hasCommandWord(input, "find")) {
+            return CommandType.FIND;
         } else if (input.equals("write")) {
             return CommandType.WRITE;
         } else if (hasCommandWord(input, "read")) {
