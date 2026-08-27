@@ -34,23 +34,8 @@ public class ShrekAndDonkey {
             if (commandType == Parser.CommandType.LIST) {
                 new ListCommand().execute(taskList, ui, storage);
             } else if (commandType == Parser.CommandType.MARK) {
-                String taskNumberText = Parser.getArguments(input, "mark");
-
-                //Exception handling
-                try {
-                    int taskIndex = Integer.parseInt(taskNumberText) - 1;
-                    if (taskIndex < 0 || taskIndex >= taskList.size()) {
-                        ui.showMessage(" Please enter a task number from 1 to " + taskList.size() + ".");
-                    } else {
-                        //using task as state
-                        taskList.get(taskIndex).markAsDone();
-                        ui.showMessage(" Nice! I've marked this task as done:");
-                        ui.showMessage("   " + taskList.get(taskIndex));
-                    }
-                } catch (NumberFormatException e) {
-                    ui.showMessage(" Please enter a valid task number after 'mark'.");
-                }
-                ui.showDivider();
+                new MarkCommand(Parser.getArguments(input, "mark"))
+                        .execute(taskList, ui, storage);
 
                 //Updated by Chatgpt
             } else if (commandType == Parser.CommandType.UNMARK) {
