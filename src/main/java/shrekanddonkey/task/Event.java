@@ -4,18 +4,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-//Implemented by Chatgpt
 /**
  * Represents a task that takes place between a start and an end date or time.
  */
-//Stores a from and to variable for date/time
 public class Event extends Task {
     private static final DateTimeFormatter OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a", Locale.ENGLISH);
     /** Event start date and time. */
-    protected LocalDateTime from;
+    private LocalDateTime from;
     /** Event end date and time. */
-    protected LocalDateTime to;
+    private LocalDateTime to;
 
     /**
      * Creates an event that is initially not done.

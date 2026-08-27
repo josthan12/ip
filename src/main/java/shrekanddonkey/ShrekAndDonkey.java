@@ -1,5 +1,16 @@
 package shrekanddonkey;
-import shrekanddonkey.command.*;
+
+import shrekanddonkey.command.Command;
+import shrekanddonkey.command.DeadlineCommand;
+import shrekanddonkey.command.DeleteCommand;
+import shrekanddonkey.command.EventCommand;
+import shrekanddonkey.command.ExitCommand;
+import shrekanddonkey.command.ListCommand;
+import shrekanddonkey.command.MarkCommand;
+import shrekanddonkey.command.ReadCommand;
+import shrekanddonkey.command.TodoCommand;
+import shrekanddonkey.command.UnmarkCommand;
+import shrekanddonkey.command.WriteCommand;
 import shrekanddonkey.parser.Parser;
 import shrekanddonkey.storage.Storage;
 import shrekanddonkey.task.TaskList;
@@ -24,14 +35,11 @@ public class ShrekAndDonkey {
         Ui ui = new Ui();
         ui.showWelcome();
 
-        // Each Task object keeps its description and done status together.
-
         TaskList taskList = new TaskList();
         Storage storage = new Storage("./data/happyFile.txt");
 
         String input = ui.readCommand();
 
-        //Scans till bye is input
         while (true) {
             Parser.CommandType commandType = Parser.parseCommandType(input);
             if (commandType == Parser.CommandType.EXIT) {
@@ -43,14 +51,12 @@ public class ShrekAndDonkey {
             }
             ui.showDivider();
 
-            //If list is input 
             if (commandType == Parser.CommandType.LIST) {
                 new ListCommand().execute(taskList, ui, storage);
             } else if (commandType == Parser.CommandType.MARK) {
                 new MarkCommand(Parser.getArguments(input, "mark"))
                         .execute(taskList, ui, storage);
 
-                //Updated by Chatgpt
             } else if (commandType == Parser.CommandType.UNMARK) {
                 new UnmarkCommand(Parser.getArguments(input, "unmark"))
                         .execute(taskList, ui, storage);
@@ -66,19 +72,12 @@ public class ShrekAndDonkey {
             } else if (commandType == Parser.CommandType.DELETE) {
                 new DeleteCommand(Parser.getArguments(input, "delete"))
                         .execute(taskList, ui, storage);
-            }
-            // Writing to one specific file only
-            else if (commandType == Parser.CommandType.WRITE) {
+            } else if (commandType == Parser.CommandType.WRITE) {
                 new WriteCommand().execute(taskList, ui, storage);
-            }
-            else if (commandType == Parser.CommandType.READ) {
+            } else if (commandType == Parser.CommandType.READ) {
                 new ReadCommand(Parser.getArguments(input, "read"))
                         .execute(taskList, ui, storage);
-            }
-
-
-
-            else {
+            } else {
 
                 ui.showMessage("NO VALID INPUT GIVEN,PWEASE TRY AGAIN");
                 ui.showDivider();

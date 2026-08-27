@@ -1,11 +1,9 @@
 package shrekanddonkey.task;
 
-//Implemented by Chatgpt
 /**
  * Represents a task without any associated date or time.
  */
 
-//No extra variable needed for ToDo
 public class Todo extends Task {
     /**
      * Creates a ToDo that is initially not done.

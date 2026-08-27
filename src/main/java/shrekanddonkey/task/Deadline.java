@@ -4,16 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-//Implemented by Chatgpt
 /**
  * Represents a task that must be completed by a specified date or time.
  */
-//Just extends from Task but has a by variable
 public class Deadline extends Task {
     private static final DateTimeFormatter OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a", Locale.ENGLISH);
     /** Deadline date and time. */
-    protected LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Creates a deadline that is initially not done.

@@ -1,14 +1,13 @@
 package shrekanddonkey.task;
 
-//Made using Chatgpt
 /**
  * Represents a task with a description and completion status.
  */
 public class Task {
     /** Text describing the task. */
-    protected String description;
+    private String description;
     /** Whether the task has been completed. */
-    protected boolean isDone;
+    private boolean isDone;
 
     /**
      * Creates a task that is initially not done.

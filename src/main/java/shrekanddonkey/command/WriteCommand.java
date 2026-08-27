@@ -1,9 +1,10 @@
 package shrekanddonkey.command;
+
+import java.io.IOException;
+
 import shrekanddonkey.storage.Storage;
 import shrekanddonkey.task.TaskList;
 import shrekanddonkey.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents the command that saves the current task list.

@@ -1,8 +1,9 @@
 package shrekanddonkey.ui;
-import shrekanddonkey.task.Task;
 
 import java.util.List;
 import java.util.Scanner;
+
+import shrekanddonkey.task.Task;
 
 /**
  * Handles console input and output for the chatbot.

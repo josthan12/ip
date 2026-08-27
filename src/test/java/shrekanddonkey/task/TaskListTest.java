@@ -62,7 +62,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void removeIndexPastEnd_throwsIndexOutOfBoundsException() {
+    public void remove_pastEndIndex_throwsIndexOutOfBoundsException() {
         TaskList taskList = createTaskList(new Task("task"));
 
         assertThrows(IndexOutOfBoundsException.class, () -> taskList.remove(1));
