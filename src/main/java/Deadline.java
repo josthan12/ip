@@ -1,18 +1,24 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 //Implemented by Chatgpt
 /**
  * Represents a task that must be completed by a specified date or time.
  */
 //Just extends from Task but has a by variable
 public class Deadline extends Task {
-    protected String by;
+    private static final DateTimeFormatter OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a", Locale.ENGLISH);
+    protected LocalDateTime by;
 
     /**
      * Creates a deadline that is initially not done.
      *
      * @param description description of the task
-     * @param by deadline stored as text
+     * @param by deadline date and time
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -24,6 +30,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(OUTPUT_FORMATTER) + ")";
     }
 }
