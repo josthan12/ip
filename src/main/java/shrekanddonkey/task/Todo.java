@@ -1,3 +1,5 @@
+package shrekanddonkey.task;
+
 //Implemented by Chatgpt
 /**
  * Represents a task without any associated date or time.

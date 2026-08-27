@@ -1,3 +1,10 @@
+package shrekanddonkey;
+import shrekanddonkey.command.*;
+import shrekanddonkey.parser.Parser;
+import shrekanddonkey.storage.Storage;
+import shrekanddonkey.task.TaskList;
+import shrekanddonkey.ui.Ui;
+
 /**
  * Runs the ShrekAndDonkey chatbot and manages the user's task list.
  */
@@ -70,3 +77,4 @@ public class ShrekAndDonkey {
 
     }
 }
+

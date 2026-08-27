@@ -1,3 +1,5 @@
+package shrekanddonkey.task;
+
 //Made using Chatgpt
 /**
  * Represents a task with a description and completion status.

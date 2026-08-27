@@ -1,3 +1,11 @@
+package shrekanddonkey.command;
+import shrekanddonkey.exception.ShrekAndDonkeyException;
+import shrekanddonkey.parser.Parser;
+import shrekanddonkey.storage.Storage;
+import shrekanddonkey.task.Deadline;
+import shrekanddonkey.task.TaskList;
+import shrekanddonkey.ui.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -36,3 +44,4 @@ public class DeadlineCommand extends Command {
         ui.showDivider();
     }
 }
+

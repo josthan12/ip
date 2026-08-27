@@ -1,3 +1,6 @@
+package shrekanddonkey.ui;
+import shrekanddonkey.task.Task;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -91,3 +94,4 @@ public class Ui {
         }
     }
 }
+

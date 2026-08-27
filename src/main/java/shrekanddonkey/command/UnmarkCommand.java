@@ -1,15 +1,15 @@
+package shrekanddonkey.command;
+import shrekanddonkey.storage.Storage;
+import shrekanddonkey.task.TaskList;
+import shrekanddonkey.ui.Ui;
+
 /**
- * Represents the command that marks a task as completed.
+ * Represents the command that marks a task as not completed.
  */
-public class MarkCommand extends Command {
+public class UnmarkCommand extends Command {
     private final String arguments;
 
-    /**
-     * Creates a mark command with its raw task-number argument.
-     *
-     * @param arguments text following the {@code mark} command
-     */
-    public MarkCommand(String arguments) {
+    public UnmarkCommand(String arguments) {
         this.arguments = arguments;
     }
 
@@ -20,13 +20,14 @@ public class MarkCommand extends Command {
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
                 ui.showMessage(" Please enter a task number from 1 to " + tasks.size() + ".");
             } else {
-                tasks.get(taskIndex).markAsDone();
-                ui.showMessage(" Nice! I've marked this task as done:");
+                tasks.get(taskIndex).markAsNotDone();
+                ui.showMessage(" OK, I've marked this task as not done yet:");
                 ui.showMessage("   " + tasks.get(taskIndex));
             }
         } catch (NumberFormatException e) {
-            ui.showMessage(" Please enter a valid task number after 'mark'.");
+            ui.showMessage(" Please enter a valid task number after 'unmark'.");
         }
         ui.showDivider();
     }
 }
+

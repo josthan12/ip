@@ -1,3 +1,5 @@
+package shrekanddonkey.exception;
+
 //Custom Exception Class
 public class ShrekAndDonkeyException extends RuntimeException{
     public ShrekAndDonkeyException(){

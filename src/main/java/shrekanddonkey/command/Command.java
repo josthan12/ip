@@ -1,3 +1,8 @@
+package shrekanddonkey.command;
+import shrekanddonkey.storage.Storage;
+import shrekanddonkey.task.TaskList;
+import shrekanddonkey.ui.Ui;
+
 /**
  * Represents one executable chatbot command.
  */
@@ -20,3 +25,4 @@ public abstract class Command {
         return false;
     }
 }
+

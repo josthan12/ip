@@ -1,3 +1,8 @@
+package shrekanddonkey.command;
+import shrekanddonkey.storage.Storage;
+import shrekanddonkey.task.TaskList;
+import shrekanddonkey.ui.Ui;
+
 /**
  * Represents the command that ends the chatbot session.
  */
@@ -12,3 +17,4 @@ public class ExitCommand extends Command {
         return true;
     }
 }
+

@@ -1,3 +1,6 @@
+package shrekanddonkey.storage;
+import shrekanddonkey.task.Task;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -47,3 +50,4 @@ public class Storage {
         return Files.readAllLines(filePath, StandardCharsets.UTF_8);
     }
 }
+

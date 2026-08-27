@@ -1,3 +1,9 @@
+package shrekanddonkey.command;
+import shrekanddonkey.storage.Storage;
+import shrekanddonkey.task.Task;
+import shrekanddonkey.task.TaskList;
+import shrekanddonkey.ui.Ui;
+
 /**
  * Represents the command that removes a task by its one-based number.
  */
@@ -31,3 +37,4 @@ public class DeleteCommand extends Command {
         ui.showDivider();
     }
 }
+
