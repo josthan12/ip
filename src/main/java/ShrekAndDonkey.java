@@ -1,8 +1,4 @@
-import java.util.Scanner;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -18,6 +14,7 @@ public class ShrekAndDonkey {
         // Each Task object keeps its description and done status together.
 
         TaskList taskList = new TaskList();
+        Storage storage = new Storage("./data/happyFile.txt");
 
         String input = ui.readCommand();
 
@@ -167,25 +164,13 @@ public class ShrekAndDonkey {
             }
             // Writing to one specific file only
             else if (commandType == Parser.CommandType.WRITE) {
-                File dataDirectory = new File("./data");
-
-                if (!dataDirectory.exists() && !dataDirectory.mkdirs()) {
-                    ui.showMessage("Unable to create the data directory.");
-                } else {
-                    File taskFile = new File(dataDirectory, "happyFile.txt");
-
-                    try (FileWriter writerObject = new FileWriter(taskFile)) {
-                        for (Task task : taskList.getTasks()) {
-                            writerObject.write(task.toString());
-                            writerObject.write(System.lineSeparator());
-                        }
-
-                        ui.showMessage("Successfully written");
-                    } catch (IOException e) {
-                        ui.showMessage("Unable to write to " + taskFile.getPath());
-                    }
-                    ui.showDivider();
+                try {
+                    storage.save(taskList.getTasks());
+                    ui.showMessage("Successfully written");
+                } catch (IOException e) {
+                    ui.showMessage("Unable to write to ./data/happyFile.txt");
                 }
+                ui.showDivider();
             }
             else if (commandType == Parser.CommandType.READ) {
                 String requestedFileName = Parser.getArguments(input, "read");
@@ -193,15 +178,15 @@ public class ShrekAndDonkey {
                 if (requestedFileName.isEmpty()) {
                     ui.showMessage("Please specify a file name after 'read'.");
                 } else {
-                    File taskFile = new File("./data", requestedFileName);
+                    Storage requestedStorage = new Storage("./data/" + requestedFileName);
 
-                    try (Scanner myReader = new Scanner(taskFile)) {
-                        while (myReader.hasNextLine()) {
-                            ui.showMessage(myReader.nextLine());
+                    try {
+                        for (String line : requestedStorage.loadLines()) {
+                            ui.showMessage(line);
                         }
                         ui.showDivider();
-                    } catch (FileNotFoundException e) {
-                        ui.showMessage("File not found: " + taskFile.getPath());
+                    } catch (IOException e) {
+                        ui.showMessage("File not found: ./data/" + requestedFileName);
                     }
                 }
             }
