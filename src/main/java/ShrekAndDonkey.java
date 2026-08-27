@@ -149,24 +149,8 @@ public class ShrekAndDonkey {
                 }
                 ui.showDivider();
             } else if (commandType == Parser.CommandType.DELETE) {
-                String deleteDetails = Parser.getArguments(input, "delete");
-
-                try {
-                    int deleteIndex = Integer.parseInt(deleteDetails) - 1;
-                    if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
-                        ui.showMessage(" Please enter a task number from 1 to " + taskList.size()
-                                + ".");
-                    } else {
-
-                        Task removedTask = taskList.remove(deleteIndex);
-                        ui.showMessage(" Noted. I've removed this task:");
-                        ui.showMessage("   " + removedTask);
-                        ui.showMessage(" Now you have " + taskList.size() + " tasks in the list.");
-                    }
-                } catch (NumberFormatException e) {
-                    ui.showMessage(" Please enter a valid task number after 'delete'.");
-                }
-                ui.showDivider();
+                new DeleteCommand(Parser.getArguments(input, "delete"))
+                        .execute(taskList, ui, storage);
             }
             // Writing to one specific file only
             else if (commandType == Parser.CommandType.WRITE) {
