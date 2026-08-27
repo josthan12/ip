@@ -32,8 +32,7 @@ public class ShrekAndDonkey {
 
             //If list is input 
             if (commandType == Parser.CommandType.LIST) {
-                ui.showTaskList(taskList.getTasks());
-                ui.showDivider();
+                new ListCommand().execute(taskList, ui, storage);
             } else if (commandType == Parser.CommandType.MARK) {
                 String taskNumberText = Parser.getArguments(input, "mark");
 
