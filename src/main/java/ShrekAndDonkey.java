@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 
 /**
  * Runs the ShrekAndDonkey chatbot and manages the user's task list.
@@ -44,9 +48,9 @@ public class ShrekAndDonkey {
         String input = scanner.nextLine();
 
         //Scans till bye is input
-        while (!input.equals("bye")) { 
+        while (!input.equals("bye")) {
             System.out.println(divider);
-            
+
             //If list is input 
             if (input.equals("list")) {
                 System.out.println(" Here are the tasks in your list:");
@@ -99,19 +103,17 @@ public class ShrekAndDonkey {
                 System.out.println(divider);
             } else if (input.equals("todo") || input.startsWith("todo ")) {
                 String description = input.substring("todo".length()).trim();
-                try{
+                try {
                     if (description.isEmpty()) {
                         throw new ShrekAndDonkeyException("todo");
 
-                    }
-                    else{
+                    } else {
                         taskList.add(new Todo(description));
-                        printTaskAdded(taskList.get(taskList.size()-1), taskList.size());
+                        printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
                         System.out.println(divider);
                     }
 
-                }
-                catch (ShrekAndDonkeyException e){
+                } catch (ShrekAndDonkeyException e) {
                     System.out.println("OOPS!!UWU description of a " + e.getMessage() + " cannot be empty UwU");
                     System.out.println(divider);
                 }
@@ -130,7 +132,7 @@ public class ShrekAndDonkey {
                         }
                         String deadline = taskDetails.substring(byMarkerIndex + "/by".length()).trim();
                         taskList.add(new Deadline(description, deadline));
-                        printTaskAdded(taskList.get(taskList.size()-1), taskList.size());
+                        printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
                     }
                 } catch (ShrekAndDonkeyException e) {
                     System.out.println("OOPS!!UWU description of a "
@@ -155,7 +157,7 @@ public class ShrekAndDonkey {
                                 fromMarkerIndex + "/from".length(), toMarkerIndex).trim();
                         String end = taskDetails.substring(toMarkerIndex + "/to".length()).trim();
                         taskList.add(new Event(description, start, end));
-                        printTaskAdded(taskList.get(taskList.size()-1), taskList.size());
+                        printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
                     }
                 } catch (ShrekAndDonkeyException e) {
                     System.out.println("OOPS!!UWU description of a "
@@ -182,6 +184,48 @@ public class ShrekAndDonkey {
                 }
                 System.out.println(divider);
             }
+            // Writing to one specific file only
+            else if (input.equals("write")) {
+                File dataDirectory = new File("./data");
+
+                if (!dataDirectory.exists() && !dataDirectory.mkdirs()) {
+                    System.out.println("Unable to create the data directory.");
+                } else {
+                    File taskFile = new File(dataDirectory, "happyFile.txt");
+
+                    try (FileWriter writerObject = new FileWriter(taskFile)) {
+                        for (Task task : taskList) {
+                            writerObject.write(task.toString());
+                            writerObject.write(System.lineSeparator());
+                        }
+
+                        System.out.println("Successfully written");
+                    } catch (IOException e) {
+                        System.out.println("Unable to write to " + taskFile.getPath());
+                    }
+                    System.out.println(divider);
+                }
+            }
+            else if (input.equals("read") || input.startsWith("read ")) {
+                String requestedFileName = input.substring("read".length()).trim();
+
+                if (requestedFileName.isEmpty()) {
+                    System.out.println("Please specify a file name after 'read'.");
+                } else {
+                    File taskFile = new File("./data", requestedFileName);
+
+                    try (Scanner myReader = new Scanner(taskFile)) {
+                        while (myReader.hasNextLine()) {
+                            System.out.println(myReader.nextLine());
+                        }
+                        System.out.println(divider);
+                    } catch (FileNotFoundException e) {
+                        System.out.println("File not found: " + taskFile.getPath());
+                    }
+                }
+            }
+
+
 
             else {
 
