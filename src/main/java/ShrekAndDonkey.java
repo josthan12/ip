@@ -19,8 +19,15 @@ public class ShrekAndDonkey {
         String input = ui.readCommand();
 
         //Scans till bye is input
-        while (!input.equals("bye")) {
+        while (true) {
             Parser.CommandType commandType = Parser.parseCommandType(input);
+            if (commandType == Parser.CommandType.EXIT) {
+                Command command = new ExitCommand();
+                command.execute(taskList, ui, storage);
+                if (command.isExit()) {
+                    break;
+                }
+            }
             ui.showDivider();
 
             //If list is input 
@@ -201,6 +208,5 @@ public class ShrekAndDonkey {
             input = ui.readCommand();
         }
 
-        ui.showGoodbye();
     }
 }

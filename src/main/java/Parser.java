@@ -12,7 +12,7 @@ public class Parser {
      * Lists the command types understood by the chatbot.
      */
     public enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, WRITE, READ, UNKNOWN
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, WRITE, READ, EXIT, UNKNOWN
     }
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
@@ -50,6 +50,8 @@ public class Parser {
             return CommandType.WRITE;
         } else if (hasCommandWord(input, "read")) {
             return CommandType.READ;
+        } else if (input.equals("bye")) {
+            return CommandType.EXIT;
         }
         return CommandType.UNKNOWN;
     }
