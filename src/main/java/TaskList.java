@@ -1,0 +1,64 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Stores and provides operations on the chatbot's tasks.
+ */
+public class TaskList {
+    private final List<Task> tasks;
+
+    /**
+     * Creates an empty task list.
+     */
+    public TaskList() {
+        tasks = new ArrayList<>();
+    }
+
+    /**
+     * Adds a task to the end of the list.
+     *
+     * @param task task to add
+     */
+    public void add(Task task) {
+        tasks.add(task);
+    }
+
+    /**
+     * Returns the task at a zero-based index.
+     *
+     * @param index zero-based task index
+     * @return task at the given index
+     */
+    public Task get(int index) {
+        return tasks.get(index);
+    }
+
+    /**
+     * Removes and returns the task at a zero-based index.
+     *
+     * @param index zero-based task index
+     * @return removed task
+     */
+    public Task remove(int index) {
+        return tasks.remove(index);
+    }
+
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return task count
+     */
+    public int size() {
+        return tasks.size();
+    }
+
+    /**
+     * Returns a read-only view of the tasks for display or storage.
+     *
+     * @return tasks in their current order
+     */
+    public List<Task> getTasks() {
+        return Collections.unmodifiableList(tasks);
+    }
+}

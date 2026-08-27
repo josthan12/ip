@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -54,7 +53,7 @@ public class ShrekAndDonkey {
 
         // Each Task object keeps its description and done status together.
 
-        ArrayList<Task> taskList = new ArrayList<>();
+        TaskList taskList = new TaskList();
 
         String input = ui.readCommand();
 
@@ -64,7 +63,7 @@ public class ShrekAndDonkey {
 
             //If list is input 
             if (input.equals("list")) {
-                ui.showTaskList(taskList);
+                ui.showTaskList(taskList.getTasks());
                 ui.showDivider();
             } else if (input.equals("mark") || input.startsWith("mark ")) {
                 String taskNumberText = input.substring("mark".length()).trim();
@@ -211,7 +210,7 @@ public class ShrekAndDonkey {
                     File taskFile = new File(dataDirectory, "happyFile.txt");
 
                     try (FileWriter writerObject = new FileWriter(taskFile)) {
-                        for (Task task : taskList) {
+                        for (Task task : taskList.getTasks()) {
                             writerObject.write(task.toString());
                             writerObject.write(System.lineSeparator());
                         }
