@@ -4,12 +4,46 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 
 /**
  * Runs the ShrekAndDonkey chatbot and manages the user's task list.
  */
 public class ShrekAndDonkey {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm")
+                    .withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("uuuu-MM-dd")
+                    .withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter SHORT_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("d/M/uuuu HHmm")
+                    .withResolverStyle(ResolverStyle.STRICT);
+
+    /**
+     * Parses a date or date/time entered by the user.
+     *
+     * @param text date or date/time text
+     * @return parsed date/time, using midnight for date-only input
+     * @throws DateTimeParseException if the text is not a supported date format
+     */
+    private static LocalDateTime parseDateTime(String text) {
+        try {
+            return LocalDateTime.parse(text, DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException ignored) {
+            try {
+                return LocalDate.parse(text, DATE_FORMATTER).atStartOfDay();
+            } catch (DateTimeParseException ignoredDateOnly) {
+                return LocalDateTime.parse(text, SHORT_DATE_TIME_FORMATTER);
+            }
+        }
+    }
+
     /**
      * Prints the confirmation shown after adding a task.
      *
@@ -130,13 +164,17 @@ public class ShrekAndDonkey {
                         if (description.isEmpty()) {
                             throw new ShrekAndDonkeyException("deadline");
                         }
-                        String deadline = taskDetails.substring(byMarkerIndex + "/by".length()).trim();
+                        String deadlineText = taskDetails.substring(byMarkerIndex + "/by".length()).trim();
+                        LocalDateTime deadline = parseDateTime(deadlineText);
                         taskList.add(new Deadline(description, deadline));
                         printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
                     }
                 } catch (ShrekAndDonkeyException e) {
                     System.out.println("OOPS!!UWU description of a "
                             + e.getMessage() + " cannot be empty UwU");
+                } catch (DateTimeParseException e) {
+                    System.out.println(" Please enter a valid deadline date (yyyy-MM-dd, yyyy-MM-dd HH:mm, "
+                            + "or d/M/yyyy HHmm).");
                 }
                 System.out.println(divider);
             } else if (input.equals("event") || input.startsWith("event ")) {
@@ -153,15 +191,20 @@ public class ShrekAndDonkey {
                         if (description.isEmpty()) {
                             throw new ShrekAndDonkeyException("event");
                         }
-                        String start = taskDetails.substring(
+                        String startText = taskDetails.substring(
                                 fromMarkerIndex + "/from".length(), toMarkerIndex).trim();
-                        String end = taskDetails.substring(toMarkerIndex + "/to".length()).trim();
+                        String endText = taskDetails.substring(toMarkerIndex + "/to".length()).trim();
+                        LocalDateTime start = parseDateTime(startText);
+                        LocalDateTime end = parseDateTime(endText);
                         taskList.add(new Event(description, start, end));
                         printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
                     }
                 } catch (ShrekAndDonkeyException e) {
                     System.out.println("OOPS!!UWU description of a "
                             + e.getMessage() + " cannot be empty UwU");
+                } catch (DateTimeParseException e) {
+                    System.out.println(" Please enter valid event dates (yyyy-MM-dd, yyyy-MM-dd HH:mm, "
+                            + "or d/M/yyyy HHmm).");
                 }
                 System.out.println(divider);
             } else if (input.equals("delete") || input.startsWith("delete ")) {
