@@ -37,7 +37,7 @@ test {
 }
 
 application {
-    mainClass = 'shrekanddonkey.ShrekAndDonkey' 
+    mainClass = 'shrekanddonkey.ShrekAndDonkey'
 }
 
 jar {
@@ -48,7 +48,7 @@ jar {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'shrekanddonkey.jar'
 }
 
 run {
