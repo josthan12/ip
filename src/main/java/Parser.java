@@ -1,0 +1,94 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+
+/**
+ * Interprets user commands and parses their date and time values.
+ */
+public class Parser {
+    /**
+     * Lists the command types understood by the chatbot.
+     */
+    public enum CommandType {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, WRITE, READ, UNKNOWN
+    }
+
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm")
+                    .withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("uuuu-MM-dd")
+                    .withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter SHORT_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("d/M/uuuu HHmm")
+                    .withResolverStyle(ResolverStyle.STRICT);
+
+    /**
+     * Determines the type of a user command while preserving its original input rules.
+     *
+     * @param input command entered by the user
+     * @return the command type, or {@code UNKNOWN} when unsupported
+     */
+    public static CommandType parseCommandType(String input) {
+        if (input.equals("list")) {
+            return CommandType.LIST;
+        } else if (hasCommandWord(input, "mark")) {
+            return CommandType.MARK;
+        } else if (hasCommandWord(input, "unmark")) {
+            return CommandType.UNMARK;
+        } else if (hasCommandWord(input, "todo")) {
+            return CommandType.TODO;
+        } else if (hasCommandWord(input, "deadline")) {
+            return CommandType.DEADLINE;
+        } else if (hasCommandWord(input, "event")) {
+            return CommandType.EVENT;
+        } else if (hasCommandWord(input, "delete")) {
+            return CommandType.DELETE;
+        } else if (input.equals("write")) {
+            return CommandType.WRITE;
+        } else if (hasCommandWord(input, "read")) {
+            return CommandType.READ;
+        }
+        return CommandType.UNKNOWN;
+    }
+
+    /**
+     * Returns the trimmed text after a command word.
+     *
+     * @param input complete user input
+     * @param command command word at the beginning of the input
+     * @return command arguments, or an empty string when none are provided
+     */
+    public static String getArguments(String input, String command) {
+        return input.substring(command.length()).trim();
+    }
+
+    /**
+     * Parses a date or date/time entered by the user.
+     *
+     * @param text date or date/time text
+     * @return parsed date/time, using midnight for date-only input
+     * @throws DateTimeParseException if the text is not a supported date format
+     */
+    public static LocalDateTime parseDateTime(String text) {
+        try {
+            return LocalDateTime.parse(text, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        } catch (DateTimeParseException ignoredIsoDateTime) {
+            try {
+                return LocalDateTime.parse(text, DATE_TIME_FORMATTER);
+            } catch (DateTimeParseException ignoredSpaceDateTime) {
+                try {
+                    return LocalDate.parse(text, DATE_FORMATTER).atStartOfDay();
+                } catch (DateTimeParseException ignoredDateOnly) {
+                    return LocalDateTime.parse(text, SHORT_DATE_TIME_FORMATTER);
+                }
+            }
+        }
+    }
+
+    private static boolean hasCommandWord(String input, String command) {
+        return input.equals(command) || input.startsWith(command + " ");
+    }
+}

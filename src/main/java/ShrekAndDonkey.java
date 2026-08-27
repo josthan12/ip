@@ -3,50 +3,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 
 
 /**
  * Runs the ShrekAndDonkey chatbot and manages the user's task list.
  */
 public class ShrekAndDonkey {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm")
-                    .withResolverStyle(ResolverStyle.STRICT);
-    private static final DateTimeFormatter DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("uuuu-MM-dd")
-                    .withResolverStyle(ResolverStyle.STRICT);
-    private static final DateTimeFormatter SHORT_DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("d/M/uuuu HHmm")
-                    .withResolverStyle(ResolverStyle.STRICT);
-
-    /**
-     * Parses a date or date/time entered by the user.
-     *
-     * @param text date or date/time text
-     * @return parsed date/time, using midnight for date-only input
-     * @throws DateTimeParseException if the text is not a supported date format
-     */
-    private static LocalDateTime parseDateTime(String text) {
-        try {
-            return LocalDateTime.parse(text, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        } catch (DateTimeParseException ignoredIsoDateTime) {
-            try {
-            return LocalDateTime.parse(text, DATE_TIME_FORMATTER);
-            } catch (DateTimeParseException ignoredSpaceDateTime) {
-                try {
-                    return LocalDate.parse(text, DATE_FORMATTER).atStartOfDay();
-                } catch (DateTimeParseException ignoredDateOnly) {
-                    return LocalDateTime.parse(text, SHORT_DATE_TIME_FORMATTER);
-                }
-            }
-        }
-    }
-
     public static void main(String[] args) {
         Ui ui = new Ui();
         ui.showWelcome();
@@ -59,14 +23,15 @@ public class ShrekAndDonkey {
 
         //Scans till bye is input
         while (!input.equals("bye")) {
+            Parser.CommandType commandType = Parser.parseCommandType(input);
             ui.showDivider();
 
             //If list is input 
-            if (input.equals("list")) {
+            if (commandType == Parser.CommandType.LIST) {
                 ui.showTaskList(taskList.getTasks());
                 ui.showDivider();
-            } else if (input.equals("mark") || input.startsWith("mark ")) {
-                String taskNumberText = input.substring("mark".length()).trim();
+            } else if (commandType == Parser.CommandType.MARK) {
+                String taskNumberText = Parser.getArguments(input, "mark");
 
                 //Exception handling
                 try {
@@ -85,8 +50,8 @@ public class ShrekAndDonkey {
                 ui.showDivider();
 
                 //Updated by Chatgpt
-            } else if (input.equals("unmark") || input.startsWith("unmark ")) {
-                String taskNumberText = input.substring("unmark".length()).trim();
+            } else if (commandType == Parser.CommandType.UNMARK) {
+                String taskNumberText = Parser.getArguments(input, "unmark");
 
                 //Exception handling for unmarked
                 try {
@@ -104,8 +69,8 @@ public class ShrekAndDonkey {
                     ui.showMessage(" Please enter a valid task number after 'unmark'.");
                 }
                 ui.showDivider();
-            } else if (input.equals("todo") || input.startsWith("todo ")) {
-                String description = input.substring("todo".length()).trim();
+            } else if (commandType == Parser.CommandType.TODO) {
+                String description = Parser.getArguments(input, "todo");
                 try {
                     if (description.isEmpty()) {
                         throw new ShrekAndDonkeyException("todo");
@@ -120,8 +85,8 @@ public class ShrekAndDonkey {
                     ui.showMessage("OOPS!!UWU description of a " + e.getMessage() + " cannot be empty UwU");
                     ui.showDivider();
                 }
-            } else if (input.equals("deadline") || input.startsWith("deadline ")) {
-                String taskDetails = input.substring("deadline".length()).trim();
+            } else if (commandType == Parser.CommandType.DEADLINE) {
+                String taskDetails = Parser.getArguments(input, "deadline");
                 int byMarkerIndex = taskDetails.indexOf("/by");
 
                 //Exception only checks for missing description and date for deadline(copied format from todo)
@@ -134,7 +99,7 @@ public class ShrekAndDonkey {
                             throw new ShrekAndDonkeyException("deadline");
                         }
                         String deadlineText = taskDetails.substring(byMarkerIndex + "/by".length()).trim();
-                        LocalDateTime deadline = parseDateTime(deadlineText);
+                        LocalDateTime deadline = Parser.parseDateTime(deadlineText);
                         taskList.add(new Deadline(description, deadline));
                         ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
                     }
@@ -146,8 +111,8 @@ public class ShrekAndDonkey {
                             + "or d/M/yyyy HHmm).");
                 }
                 ui.showDivider();
-            } else if (input.equals("event") || input.startsWith("event ")) {
-                String taskDetails = input.substring("event".length()).trim();
+            } else if (commandType == Parser.CommandType.EVENT) {
+                String taskDetails = Parser.getArguments(input, "event");
                 int fromMarkerIndex = taskDetails.indexOf("/from");
                 int toMarkerIndex = taskDetails.indexOf("/to", fromMarkerIndex + "/from".length());
 
@@ -163,8 +128,8 @@ public class ShrekAndDonkey {
                         String startText = taskDetails.substring(
                                 fromMarkerIndex + "/from".length(), toMarkerIndex).trim();
                         String endText = taskDetails.substring(toMarkerIndex + "/to".length()).trim();
-                        LocalDateTime start = parseDateTime(startText);
-                        LocalDateTime end = parseDateTime(endText);
+                        LocalDateTime start = Parser.parseDateTime(startText);
+                        LocalDateTime end = Parser.parseDateTime(endText);
                         if (end.isBefore(start)) {
                             ui.showMessage(" Please ensure the event end is not before its start.");
                         } else {
@@ -180,8 +145,8 @@ public class ShrekAndDonkey {
                             + "or d/M/yyyy HHmm).");
                 }
                 ui.showDivider();
-            } else if (input.equals("delete") || input.startsWith("delete ")) {
-                String deleteDetails = input.substring("delete".length()).trim();
+            } else if (commandType == Parser.CommandType.DELETE) {
+                String deleteDetails = Parser.getArguments(input, "delete");
 
                 try {
                     int deleteIndex = Integer.parseInt(deleteDetails) - 1;
@@ -201,7 +166,7 @@ public class ShrekAndDonkey {
                 ui.showDivider();
             }
             // Writing to one specific file only
-            else if (input.equals("write")) {
+            else if (commandType == Parser.CommandType.WRITE) {
                 File dataDirectory = new File("./data");
 
                 if (!dataDirectory.exists() && !dataDirectory.mkdirs()) {
@@ -222,8 +187,8 @@ public class ShrekAndDonkey {
                     ui.showDivider();
                 }
             }
-            else if (input.equals("read") || input.startsWith("read ")) {
-                String requestedFileName = input.substring("read".length()).trim();
+            else if (commandType == Parser.CommandType.READ) {
+                String requestedFileName = Parser.getArguments(input, "read");
 
                 if (requestedFileName.isEmpty()) {
                     ui.showMessage("Please specify a file name after 'read'.");
