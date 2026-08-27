@@ -4,7 +4,7 @@
 
 - Java version: `25`
 - Source directory: `src/main/java`
-- Main class: `ShrekAndDonkey`
+- Main class: `shrekanddonkey.ShrekAndDonkey`
 - Timeout seconds: `10`
 - Comparison: Exact standard output after normalizing CRLF and LF line endings. Spaces, blank lines, punctuation, and the final newline remain significant.
 
@@ -104,6 +104,75 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
  Please enter a task number from 1 to 0.
+____________________________________________________________
+____________________________________________________________
+FEE FIE FOE FUMP. GET OUT OF MY SWAMP!
+____________________________________________________________
+```
+
+### TC-FIND-001: Find tasks matching keyword
+
+**Aim:** Verify find command lists tasks whose descriptions match the given keyword.
+
+**Inputs:**
+```text
+todo read book
+todo return book
+todo buy movie
+mark 1
+mark 2
+find book
+find movie
+find dessert
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ ____  _              _        _              _ ____              _
+/ ___|| |__  _ __ ___| | __   / \   _ __   __| |  _ \  ___  _ __ | | _____ _   _
+\___ \| '_ \| '__/ _ \ |/ /  / _ \ | '_ \ / _` | | | |/ _ \| '_ \| |/ / _ \ | | |
+ ___) | | | | | |  __/   <  / ___ \| | | | (_| | |_| | (_) | | | |   <  __/ |_| |
+|____/|_| |_|_|  \___|_|\_\/_/   \_\_| |_|\__,_|____/ \___/|_| |_|_|\_\___|\__, |
+                                                                            |___/
+Grrr GET OUT OF MY SWAMP! Ohh, I didn't see you there stranger! I'm ShrekAndDonkey.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] read book
+ Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] return book
+ Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] buy movie
+ Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [T][X] read book
+____________________________________________________________
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [T][X] return book
+____________________________________________________________
+____________________________________________________________
+ Here are the matching tasks in your list:
+ 1.[T][X] read book
+ 2.[T][X] return book
+____________________________________________________________
+____________________________________________________________
+ Here are the matching tasks in your list:
+ 1.[T][ ] buy movie
+____________________________________________________________
+____________________________________________________________
+ Here are the matching tasks in your list:
 ____________________________________________________________
 ____________________________________________________________
 FEE FIE FOE FUMP. GET OUT OF MY SWAMP!

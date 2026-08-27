@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests the completion-status icon returned by {@link Task#getStatusIcon()}.
+ * Tests task operations and properties of {@link Task}.
  */
 public class TaskTest {
     @Test
@@ -30,5 +30,12 @@ public class TaskTest {
         task.markAsNotDone();
 
         assertEquals(" ", task.getStatusIcon());
+    }
+
+    @Test
+    public void getDescription_returnsDescription() {
+        Task task = new Task("read book");
+
+        assertEquals("read book", task.getDescription());
     }
 }

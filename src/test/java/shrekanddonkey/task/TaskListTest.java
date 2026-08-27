@@ -3,11 +3,14 @@ package shrekanddonkey.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests removing tasks from a {@link TaskList}.
+ * Tests task operations on a {@link TaskList}.
  */
 public class TaskListTest {
     @Test
@@ -66,6 +69,42 @@ public class TaskListTest {
         TaskList taskList = createTaskList(new Task("task"));
 
         assertThrows(IndexOutOfBoundsException.class, () -> taskList.remove(1));
+    }
+
+    @Test
+    public void findTasks_matchingKeyword_returnsMatchingTasks() {
+        Task firstTask = new Task("read book");
+        Task secondTask = new Task("return book");
+        Task thirdTask = new Task("eat apple");
+        TaskList taskList = createTaskList(firstTask, secondTask, thirdTask);
+
+        List<Task> matchingTasks = taskList.findTasks("book");
+
+        assertEquals(2, matchingTasks.size());
+        assertSame(firstTask, matchingTasks.get(0));
+        assertSame(secondTask, matchingTasks.get(1));
+    }
+
+    @Test
+    public void findTasks_noMatchingKeyword_returnsEmptyList() {
+        Task firstTask = new Task("read book");
+        Task secondTask = new Task("return book");
+        TaskList taskList = createTaskList(firstTask, secondTask);
+
+        List<Task> matchingTasks = taskList.findTasks("apple");
+
+        assertTrue(matchingTasks.isEmpty());
+    }
+
+    @Test
+    public void findTasks_partialKeywordMatch_returnsMatchingTasks() {
+        Task task = new Task("assignment submission");
+        TaskList taskList = createTaskList(task);
+
+        List<Task> matchingTasks = taskList.findTasks("sign");
+
+        assertEquals(1, matchingTasks.size());
+        assertSame(task, matchingTasks.get(0));
     }
 
     private TaskList createTaskList(Task... tasks) {
