@@ -9,10 +9,22 @@ import shrekanddonkey.ui.Ui;
 public class UnmarkCommand extends Command {
     private final String arguments;
 
+    /**
+     * Creates an unmark command with its raw task-number argument.
+     *
+     * @param arguments text following the {@code unmark} command
+     */
     public UnmarkCommand(String arguments) {
         this.arguments = arguments;
     }
 
+    /**
+     * Marks the selected task as not done, or displays an error for invalid input.
+     *
+     * @param tasks application's task list
+     * @param ui application's user interface
+     * @param storage application's file storage, which is not used
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {

@@ -9,6 +9,17 @@ import shrekanddonkey.ui.Ui;
  * Runs the ShrekAndDonkey chatbot and manages the user's task list.
  */
 public class ShrekAndDonkey {
+    /**
+     * Creates the chatbot application.
+     */
+    public ShrekAndDonkey() {
+    }
+
+    /**
+     * Starts the chatbot and processes commands until the user exits.
+     *
+     * @param args command-line arguments, which are not used
+     */
     public static void main(String[] args) {
         Ui ui = new Ui();
         ui.showWelcome();

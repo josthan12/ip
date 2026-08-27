@@ -18,6 +18,13 @@ public class MarkCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Marks the selected task as done, or displays an error for invalid input.
+     *
+     * @param tasks application's task list
+     * @param ui application's user interface
+     * @param storage application's file storage, which is not used
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {

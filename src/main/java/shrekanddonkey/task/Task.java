@@ -5,7 +5,9 @@ package shrekanddonkey.task;
  * Represents a task with a description and completion status.
  */
 public class Task {
+    /** Text describing the task. */
     protected String description;
+    /** Whether the task has been completed. */
     protected boolean isDone;
 
     /**

@@ -8,6 +8,12 @@ import shrekanddonkey.ui.Ui;
  */
 public abstract class Command {
     /**
+     * Creates a command.
+     */
+    protected Command() {
+    }
+
+    /**
      * Executes this command using the application's collaborators.
      *
      * @param tasks application's task list

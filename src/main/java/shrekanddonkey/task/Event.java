@@ -12,7 +12,9 @@ import java.util.Locale;
 public class Event extends Task {
     private static final DateTimeFormatter OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a", Locale.ENGLISH);
+    /** Event start date and time. */
     protected LocalDateTime from;
+    /** Event end date and time. */
     protected LocalDateTime to;
 
     /**

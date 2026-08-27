@@ -12,6 +12,7 @@ import java.util.Locale;
 public class Deadline extends Task {
     private static final DateTimeFormatter OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a", Locale.ENGLISH);
+    /** Deadline date and time. */
     protected LocalDateTime by;
 
     /**

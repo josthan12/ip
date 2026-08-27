@@ -19,6 +19,13 @@ public class DeleteCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Removes the selected task, or displays an error when the task number is invalid.
+     *
+     * @param tasks application's task list
+     * @param ui application's user interface
+     * @param storage application's file storage, which is not used
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {

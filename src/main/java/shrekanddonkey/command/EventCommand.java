@@ -15,10 +15,22 @@ import java.time.format.DateTimeParseException;
 public class EventCommand extends Command {
     private final String arguments;
 
+    /**
+     * Creates an event command with its raw description and time arguments.
+     *
+     * @param arguments text following the {@code event} command
+     */
     public EventCommand(String arguments) {
         this.arguments = arguments;
     }
 
+    /**
+     * Adds an event task, or displays an error when the input is invalid.
+     *
+     * @param tasks application's task list
+     * @param ui application's user interface
+     * @param storage application's file storage, which is not used
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int fromMarkerIndex = arguments.indexOf("/from");

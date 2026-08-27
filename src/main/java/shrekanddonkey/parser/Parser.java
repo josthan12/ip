@@ -11,10 +11,37 @@ import java.time.format.ResolverStyle;
  */
 public class Parser {
     /**
+     * Creates a parser.
+     */
+    public Parser() {
+    }
+
+    /**
      * Lists the command types understood by the chatbot.
      */
     public enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, WRITE, READ, EXIT, UNKNOWN
+        /** Lists all tasks. */
+        LIST,
+        /** Marks a task as done. */
+        MARK,
+        /** Marks a task as not done. */
+        UNMARK,
+        /** Adds a to-do task. */
+        TODO,
+        /** Adds a deadline task. */
+        DEADLINE,
+        /** Adds an event task. */
+        EVENT,
+        /** Deletes a task. */
+        DELETE,
+        /** Saves tasks to storage. */
+        WRITE,
+        /** Reads a file. */
+        READ,
+        /** Exits the chatbot. */
+        EXIT,
+        /** Represents an unsupported command. */
+        UNKNOWN
     }
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
@@ -92,6 +119,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks whether input is exactly a command or starts with that command and a space.
+     *
+     * @param input complete user input
+     * @param command command word to check
+     * @return {@code true} when the input begins with the complete command word
+     */
     private static boolean hasCommandWord(String input, String command) {
         return input.equals(command) || input.startsWith(command + " ");
     }

@@ -11,10 +11,22 @@ import java.io.IOException;
 public class ReadCommand extends Command {
     private final String arguments;
 
+    /**
+     * Creates a read command for a file in the data directory.
+     *
+     * @param arguments file name following the {@code read} command
+     */
     public ReadCommand(String arguments) {
         this.arguments = arguments;
     }
 
+    /**
+     * Displays the contents of the requested file, or an error if it cannot be read.
+     *
+     * @param tasks application's task list, which is not used
+     * @param ui application's user interface
+     * @param storage application's file storage, which is not used
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (arguments.isEmpty()) {
