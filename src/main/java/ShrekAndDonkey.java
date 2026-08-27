@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Runs the ShrekAndDonkey chatbot and manages the user's task list.
@@ -182,6 +184,24 @@ public class ShrekAndDonkey {
                 }
                 System.out.println(divider);
             }
+            // Writing to one specific file only
+            if (input.equals("write")) {
+                try {
+                    FileWriter writerObject = new FileWriter("./data/happyFile.txt");
+                    writerObject.write("Testing 123");
+                    writerObject.close();
+                    //Manual check first
+                    System.out.println("Succesfully Written");
+                    System.out.println(divider);
+
+                }
+                catch (IOException e) {
+                    System.out.println("Error Occured when writing to file");
+                    e.printStackTrace();
+                }
+            }
+
+
 
             else {
 
