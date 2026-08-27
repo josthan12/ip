@@ -34,12 +34,16 @@ public class ShrekAndDonkey {
      */
     private static LocalDateTime parseDateTime(String text) {
         try {
-            return LocalDateTime.parse(text, DATE_TIME_FORMATTER);
-        } catch (DateTimeParseException ignored) {
+            return LocalDateTime.parse(text, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        } catch (DateTimeParseException ignoredIsoDateTime) {
             try {
-                return LocalDate.parse(text, DATE_FORMATTER).atStartOfDay();
-            } catch (DateTimeParseException ignoredDateOnly) {
-                return LocalDateTime.parse(text, SHORT_DATE_TIME_FORMATTER);
+            return LocalDateTime.parse(text, DATE_TIME_FORMATTER);
+            } catch (DateTimeParseException ignoredSpaceDateTime) {
+                try {
+                    return LocalDate.parse(text, DATE_FORMATTER).atStartOfDay();
+                } catch (DateTimeParseException ignoredDateOnly) {
+                    return LocalDateTime.parse(text, SHORT_DATE_TIME_FORMATTER);
+                }
             }
         }
     }
@@ -196,8 +200,12 @@ public class ShrekAndDonkey {
                         String endText = taskDetails.substring(toMarkerIndex + "/to".length()).trim();
                         LocalDateTime start = parseDateTime(startText);
                         LocalDateTime end = parseDateTime(endText);
-                        taskList.add(new Event(description, start, end));
-                        printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
+                        if (end.isBefore(start)) {
+                            System.out.println(" Please ensure the event end is not before its start.");
+                        } else {
+                            taskList.add(new Event(description, start, end));
+                            printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
+                        }
                     }
                 } catch (ShrekAndDonkeyException e) {
                     System.out.println("OOPS!!UWU description of a "
