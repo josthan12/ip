@@ -1,5 +1,6 @@
 package shrekanddonkey;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -58,11 +59,17 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
+        boolean shouldExit = shrekAndDonkey.isExit(input);
         String response = shrekAndDonkey.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getShrekDialog(response, shrekImage)
         );
         userInput.clear();
+
+        // Close the application after showing the goodbye message
+        if (shouldExit) {
+            Platform.exit();
+        }
     }
 }

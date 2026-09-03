@@ -91,6 +91,16 @@ public class ShrekAndDonkey {
     }
 
     /**
+     * Returns whether the given input is an exit command.
+     *
+     * @param input message entered by the user
+     * @return {@code true} if the input is a bye/exit command
+     */
+    public boolean isExit(String input) {
+        return Parser.parseCommandType(input) == Parser.CommandType.EXIT;
+    }
+
+    /**
      * Starts the chatbot and processes commands until the user exits.
      *
      * @param args command-line arguments, which are not used
