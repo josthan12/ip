@@ -21,10 +21,83 @@ import shrekanddonkey.ui.Ui;
  * Runs the ShrekAndDonkey chatbot and manages the user's task list.
  */
 public class ShrekAndDonkey {
+    private final Storage storage;
+    private final TaskList taskList;
+    private final Ui ui;
+
     /**
-     * Creates the chatbot application.
+     * Creates the chatbot application with default storage location.
      */
     public ShrekAndDonkey() {
+        this("./data/happyFile.txt");
+    }
+
+    /**
+     * Creates the chatbot application with the specified storage file path.
+     *
+     * @param filePath path to the file used for task persistence
+     */
+    public ShrekAndDonkey(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.taskList = new TaskList();
+    }
+
+    /**
+     * Returns the chatbot welcome message for display.
+     *
+     * @return the welcome message string
+     */
+    public String getWelcomeMessage() {
+        return "Grrr GET OUT OF MY SWAMP! Ohh, I didn't see you there stranger! I'm ShrekAndDonkey.\n"
+                + "What can I do for you?";
+    }
+
+    /**
+     * Generates a response for the user's chat message by parsing and executing the command.
+     *
+     * @param input message entered by the user
+     * @return response string from the chatbot
+     */
+    public String getResponse(String input) {
+        ui.clearOutput();
+        Parser.CommandType commandType = Parser.parseCommandType(input);
+        if (commandType == Parser.CommandType.EXIT) {
+            new ExitCommand().execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.LIST) {
+            new ListCommand().execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.MARK) {
+            new MarkCommand(Parser.getArguments(input, "mark")).execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.UNMARK) {
+            new UnmarkCommand(Parser.getArguments(input, "unmark")).execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.TODO) {
+            new TodoCommand(Parser.getArguments(input, "todo")).execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.DEADLINE) {
+            new DeadlineCommand(Parser.getArguments(input, "deadline")).execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.EVENT) {
+            new EventCommand(Parser.getArguments(input, "event")).execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.DELETE) {
+            new DeleteCommand(Parser.getArguments(input, "delete")).execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.FIND) {
+            new FindCommand(Parser.getArguments(input, "find")).execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.WRITE) {
+            new WriteCommand().execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.READ) {
+            new ReadCommand(Parser.getArguments(input, "read")).execute(taskList, ui, storage);
+        } else {
+            ui.showMessage("NO VALID INPUT GIVEN,PWEASE TRY AGAIN");
+        }
+        return ui.getRecordedOutput();
+    }
+
+    /**
+     * Returns whether the given input is an exit command.
+     *
+     * @param input message entered by the user
+     * @return {@code true} if the input is a bye/exit command
+     */
+    public boolean isExit(String input) {
+        return Parser.parseCommandType(input) == Parser.CommandType.EXIT;
     }
 
     /**
