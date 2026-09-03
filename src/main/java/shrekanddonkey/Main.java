@@ -23,6 +23,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("ShrekAndDonkey");
+            stage.setMinWidth(400.0);
+            stage.setMinHeight(600.0);
             fxmlLoader.<MainWindow>getController().setShrekAndDonkey(shrekAndDonkey);
             stage.show();
         } catch (IOException e) {
