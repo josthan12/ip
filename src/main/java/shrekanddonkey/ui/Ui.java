@@ -18,12 +18,29 @@ public class Ui {
             + "                                                                            |___/\n";
 
     private final Scanner scanner;
+    private final StringBuilder outputBuffer = new StringBuilder();
 
     /**
      * Creates a UI that reads commands from standard input.
      */
     public Ui() {
         scanner = new Scanner(System.in);
+    }
+
+    /**
+     * Clears recorded messages in the output buffer.
+     */
+    public void clearOutput() {
+        outputBuffer.setLength(0);
+    }
+
+    /**
+     * Returns all messages recorded in the output buffer since the last clear.
+     *
+     * @return the recorded message string
+     */
+    public String getRecordedOutput() {
+        return outputBuffer.toString().trim();
     }
 
     /**
@@ -69,6 +86,7 @@ public class Ui {
      */
     public void showMessage(String message) {
         System.out.println(message);
+        outputBuffer.append(message).append("\n");
     }
 
     /**
