@@ -9,6 +9,7 @@ import shrekanddonkey.command.FindCommand;
 import shrekanddonkey.command.ListCommand;
 import shrekanddonkey.command.MarkCommand;
 import shrekanddonkey.command.ReadCommand;
+import shrekanddonkey.command.SortCommand;
 import shrekanddonkey.command.TodoCommand;
 import shrekanddonkey.command.UnmarkCommand;
 import shrekanddonkey.command.WriteCommand;
@@ -84,6 +85,8 @@ public class ShrekAndDonkey {
             new DeleteCommand(Parser.getArguments(input, "delete")).execute(taskList, ui, storage);
         } else if (commandType == Parser.CommandType.FIND) {
             new FindCommand(Parser.getArguments(input, "find")).execute(taskList, ui, storage);
+        } else if (commandType == Parser.CommandType.SORT) {
+            new SortCommand().execute(taskList, ui, storage);
         } else if (commandType == Parser.CommandType.WRITE) {
             new WriteCommand().execute(taskList, ui, storage);
         } else if (commandType == Parser.CommandType.READ) {
@@ -155,6 +158,8 @@ public class ShrekAndDonkey {
             } else if (commandType == Parser.CommandType.FIND) {
                 new FindCommand(Parser.getArguments(input, "find"))
                         .execute(taskList, ui, storage);
+            } else if (commandType == Parser.CommandType.SORT) {
+                new SortCommand().execute(taskList, ui, storage);
             } else if (commandType == Parser.CommandType.WRITE) {
                 new WriteCommand().execute(taskList, ui, storage);
             } else if (commandType == Parser.CommandType.READ) {

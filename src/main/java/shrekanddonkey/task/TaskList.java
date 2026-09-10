@@ -1,7 +1,9 @@
 package shrekanddonkey.task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -82,5 +84,32 @@ public class TaskList {
             }
         }
         return Collections.unmodifiableList(matchingTasks);
+    }
+
+    /**
+     * Sorts deadline and event tasks by date, placing tasks without a date last.
+     * Tasks with equal dates retain their existing order because list sorting is stable.
+     */
+    public void sortByDate() {
+        tasks.sort(Comparator.comparing(this::getTaskDate,
+                Comparator.nullsLast(Comparator.naturalOrder())));
+    }
+
+    /**
+     * Returns the date used to sort a task.
+     *
+     * @param task task to inspect
+     * @return deadline date, event start date, or {@code null} for other task types
+     */
+    private LocalDateTime getTaskDate(Task task) {
+        if (task instanceof Deadline) {
+            return ((Deadline) task).getBy();
+        }
+
+        if (task instanceof Event) {
+            return ((Event) task).getFrom();
+        }
+
+        return null;
     }
 }

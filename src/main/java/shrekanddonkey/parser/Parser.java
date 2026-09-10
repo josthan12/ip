@@ -36,6 +36,8 @@ public class Parser {
         DELETE,
         /** Finds tasks matching a keyword. */
         FIND,
+        /** Sorts tasks by their relevant date. */
+        SORT,
         /** Saves tasks to storage. */
         WRITE,
         /** Reads a file. */
@@ -79,6 +81,8 @@ public class Parser {
             return CommandType.DELETE;
         } else if (hasCommandWord(input, "find")) {
             return CommandType.FIND;
+        } else if (input.equals("sort")) {
+            return CommandType.SORT;
         } else if (input.equals("write")) {
             return CommandType.WRITE;
         } else if (hasCommandWord(input, "read")) {

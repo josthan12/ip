@@ -34,6 +34,17 @@ public class ShrekAndDonkeyTest {
     }
 
     @Test
+    public void getResponse_sortCommand_ordersTasksByDate() {
+        ShrekAndDonkey bot = new ShrekAndDonkey();
+        bot.getResponse("todo read book");
+        bot.getResponse("deadline submit report /by 2026-10-15 18:00");
+
+        String response = bot.getResponse("sort");
+
+        assertTrue(response.indexOf("1.[D][ ] submit report") < response.indexOf("2.[T][ ] read book"));
+    }
+
+    @Test
     public void getResponse_commandsFlow_executesSuccessfully() {
         ShrekAndDonkey bot = new ShrekAndDonkey();
         bot.getResponse("todo read book");

@@ -29,6 +29,7 @@ public class ParserTest {
         assertEquals(Parser.CommandType.DEADLINE, Parser.parseCommandType("deadline task /by 2026-10-10"));
         assertEquals(Parser.CommandType.EVENT, Parser.parseCommandType("event e /from 2026-10-10 /to 2026-10-11"));
         assertEquals(Parser.CommandType.DELETE, Parser.parseCommandType("delete 1"));
+        assertEquals(Parser.CommandType.SORT, Parser.parseCommandType("sort"));
         assertEquals(Parser.CommandType.WRITE, Parser.parseCommandType("write"));
         assertEquals(Parser.CommandType.READ, Parser.parseCommandType("read file.txt"));
         assertEquals(Parser.CommandType.EXIT, Parser.parseCommandType("bye"));
