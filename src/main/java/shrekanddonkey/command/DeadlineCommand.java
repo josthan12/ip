@@ -39,20 +39,22 @@ public class DeadlineCommand extends Command {
         assert storage != null : "Storage collaborator cannot be null";
         assert arguments != null : "Command arguments cannot be null";
         int byMarkerIndex = arguments.indexOf("/by");
+        if (byMarkerIndex < 0) {
+            ui.showMessage(" Please specify a deadline using /by.");
+            ui.showDivider();
+            return;
+        }
+
         try {
-            if (byMarkerIndex < 0) {
-                ui.showMessage(" Please specify a deadline using /by.");
-            } else {
-                String description = arguments.substring(0, byMarkerIndex).trim();
-                if (description.isEmpty()) {
-                    throw new ShrekAndDonkeyException("deadline");
-                }
-                String deadlineText = arguments.substring(byMarkerIndex + "/by".length()).trim();
-                LocalDateTime deadline = Parser.parseDateTime(deadlineText);
-                assert deadline != null : "Parsed deadline cannot be null";
-                tasks.add(new Deadline(description, deadline));
-                ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
+            String description = arguments.substring(0, byMarkerIndex).trim();
+            if (description.isEmpty()) {
+                throw new ShrekAndDonkeyException("deadline");
             }
+            String deadlineText = arguments.substring(byMarkerIndex + "/by".length()).trim();
+            LocalDateTime deadline = Parser.parseDateTime(deadlineText);
+            assert deadline != null : "Parsed deadline cannot be null";
+            tasks.add(new Deadline(description, deadline));
+            ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
         } catch (ShrekAndDonkeyException e) {
             ui.showMessage("OOPS!!UWU description of a " + e.getMessage() + " cannot be empty UwU");
         } catch (DateTimeParseException e) {

@@ -111,10 +111,7 @@ public class Ui {
      */
     public void showTaskList(List<Task> tasks) {
         assert tasks != null : "Task list cannot be null";
-        showMessage(" Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            showMessage(" " + (i + 1) + "." + tasks.get(i));
-        }
+        showIndexedTasks(" Here are the tasks in your list:", tasks);
     }
 
     /**
@@ -124,7 +121,13 @@ public class Ui {
      */
     public void showMatchingTasks(List<Task> tasks) {
         assert tasks != null : "Matching tasks list cannot be null";
-        showMessage(" Here are the matching tasks in your list:");
+        showIndexedTasks(" Here are the matching tasks in your list:", tasks);
+    }
+
+    private void showIndexedTasks(String header, List<Task> tasks) {
+        assert header != null : "Header cannot be null";
+        assert tasks != null : "Task list cannot be null";
+        showMessage(header);
         for (int i = 0; i < tasks.size(); i++) {
             showMessage(" " + (i + 1) + "." + tasks.get(i));
         }
