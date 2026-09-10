@@ -20,6 +20,7 @@ public class Storage {
      * @param filePath path of the task file
      */
     public Storage(String filePath) {
+        assert filePath != null : "Storage file path cannot be null";
         this.filePath = Path.of(filePath);
     }
 
@@ -30,6 +31,8 @@ public class Storage {
      * @throws IOException if the directory or file cannot be written
      */
     public void save(List<Task> tasks) throws IOException {
+        assert tasks != null : "Task list to save cannot be null";
+        assert filePath != null : "Storage file path cannot be null";
         Path parent = filePath.getParent();
         if (parent != null) {
             Files.createDirectories(parent);

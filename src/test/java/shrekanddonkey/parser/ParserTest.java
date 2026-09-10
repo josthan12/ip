@@ -19,4 +19,31 @@ public class ParserTest {
         assertEquals("book", Parser.getArguments("find book", "find"));
         assertEquals("", Parser.getArguments("find", "find"));
     }
+
+    @Test
+    public void parseCommandType_allCommands_parsedCorrectly() {
+        assertEquals(Parser.CommandType.LIST, Parser.parseCommandType("list"));
+        assertEquals(Parser.CommandType.MARK, Parser.parseCommandType("mark 1"));
+        assertEquals(Parser.CommandType.UNMARK, Parser.parseCommandType("unmark 1"));
+        assertEquals(Parser.CommandType.TODO, Parser.parseCommandType("todo read"));
+        assertEquals(Parser.CommandType.DEADLINE, Parser.parseCommandType("deadline task /by 2026-10-10"));
+        assertEquals(Parser.CommandType.EVENT, Parser.parseCommandType("event e /from 2026-10-10 /to 2026-10-11"));
+        assertEquals(Parser.CommandType.DELETE, Parser.parseCommandType("delete 1"));
+        assertEquals(Parser.CommandType.WRITE, Parser.parseCommandType("write"));
+        assertEquals(Parser.CommandType.READ, Parser.parseCommandType("read file.txt"));
+        assertEquals(Parser.CommandType.EXIT, Parser.parseCommandType("bye"));
+        assertEquals(Parser.CommandType.UNKNOWN, Parser.parseCommandType("unknownCommand"));
+    }
+
+    @Test
+    public void parseDateTime_supportedFormats_parsedSuccessfully() {
+        assertEquals(java.time.LocalDateTime.of(2026, 12, 1, 14, 30),
+                Parser.parseDateTime("2026-12-01T14:30"));
+        assertEquals(java.time.LocalDateTime.of(2026, 12, 1, 14, 30),
+                Parser.parseDateTime("2026-12-01 14:30"));
+        assertEquals(java.time.LocalDateTime.of(2026, 12, 1, 0, 0),
+                Parser.parseDateTime("2026-12-01"));
+        assertEquals(java.time.LocalDateTime.of(2026, 12, 1, 14, 30),
+                Parser.parseDateTime("1/12/2026 1430"));
+    }
 }

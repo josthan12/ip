@@ -25,6 +25,9 @@ public class WriteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList collaborator cannot be null";
+        assert ui != null : "Ui collaborator cannot be null";
+        assert storage != null : "Storage collaborator cannot be null";
         try {
             storage.save(tasks.getTasks());
             ui.showMessage("Successfully written");

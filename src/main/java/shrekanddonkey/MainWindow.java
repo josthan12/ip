@@ -33,6 +33,10 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert scrollPane != null : "fx:id 'scrollPane' was not injected";
+        assert dialogContainer != null : "fx:id 'dialogContainer' was not injected";
+        assert userInput != null : "fx:id 'userInput' was not injected";
+        assert sendButton != null : "fx:id 'sendButton' was not injected";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -42,6 +46,8 @@ public class MainWindow extends AnchorPane {
      * @param s chatbot instance
      */
     public void setShrekAndDonkey(ShrekAndDonkey s) {
+        assert s != null : "ShrekAndDonkey instance cannot be null";
+        assert dialogContainer != null : "dialogContainer must be initialized before setting bot";
         shrekAndDonkey = s;
         dialogContainer.getChildren().add(
                 DialogBox.getShrekDialog(shrekAndDonkey.getWelcomeMessage(), shrekImage)
@@ -54,6 +60,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert shrekAndDonkey != null : "ShrekAndDonkey instance must be set before handling input";
         String input = userInput.getText();
         if (input.trim().isEmpty()) {
             return;

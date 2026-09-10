@@ -30,6 +30,10 @@ public class ReadCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList collaborator cannot be null";
+        assert ui != null : "Ui collaborator cannot be null";
+        assert storage != null : "Storage collaborator cannot be null";
+        assert arguments != null : "Command arguments cannot be null";
         if (arguments.isEmpty()) {
             ui.showMessage("Please specify a file name after 'read'.");
             return;
