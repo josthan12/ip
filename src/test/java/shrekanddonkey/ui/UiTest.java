@@ -1,0 +1,64 @@
+package shrekanddonkey.ui;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import shrekanddonkey.task.Task;
+import shrekanddonkey.task.Todo;
+
+/**
+ * Tests message buffer recording and presentation in {@link Ui}.
+ */
+public class UiTest {
+
+    @Test
+    public void showMessage_singleMessage_recordedInOutputBuffer() {
+        Ui ui = new Ui();
+        ui.showMessage("Hello world");
+        assertEquals("Hello world", ui.getRecordedOutput());
+    }
+
+    @Test
+    public void clearOutput_recordedMessages_clearsBuffer() {
+        Ui ui = new Ui();
+        ui.showMessage("Hello world");
+        ui.clearOutput();
+        assertEquals("", ui.getRecordedOutput());
+    }
+
+    @Test
+    public void showTaskAdded_validTask_formatsConfirmation() {
+        Ui ui = new Ui();
+        Task task = new Todo("read book");
+        ui.showTaskAdded(task, 1);
+        String output = ui.getRecordedOutput();
+        assertTrue(output.contains("Got it. I've added this task:"));
+        assertTrue(output.contains("[T][ ] read book"));
+        assertTrue(output.contains("Now you have 1 tasks in the list."));
+    }
+
+    @Test
+    public void showTaskList_nonEmptyList_formatsNumberedTasks() {
+        Ui ui = new Ui();
+        Task task1 = new Todo("read book");
+        Task task2 = new Todo("wash car");
+        ui.showTaskList(List.of(task1, task2));
+        String output = ui.getRecordedOutput();
+        assertTrue(output.contains("1.[T][ ] read book"));
+        assertTrue(output.contains("2.[T][ ] wash car"));
+    }
+
+    @Test
+    public void showMatchingTasks_nonEmptyList_formatsNumberedMatches() {
+        Ui ui = new Ui();
+        Task task = new Todo("read book");
+        ui.showMatchingTasks(List.of(task));
+        String output = ui.getRecordedOutput();
+        assertTrue(output.contains("Here are the matching tasks in your list:"));
+        assertTrue(output.contains("1.[T][ ] read book"));
+    }
+}

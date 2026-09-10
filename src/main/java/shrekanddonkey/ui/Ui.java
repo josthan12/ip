@@ -85,6 +85,7 @@ public class Ui {
      * @param message message to display
      */
     public void showMessage(String message) {
+        assert message != null : "Message to display cannot be null";
         System.out.println(message);
         outputBuffer.append(message).append("\n");
     }
@@ -96,6 +97,8 @@ public class Ui {
      * @param taskCount number of tasks in the list
      */
     public void showTaskAdded(Task task, int taskCount) {
+        assert task != null : "Task cannot be null";
+        assert taskCount >= 0 : "Task count cannot be negative";
         showMessage(" Got it. I've added this task:");
         showMessage("   " + task);
         showMessage(" Now you have " + taskCount + " tasks in the list.");
@@ -107,6 +110,7 @@ public class Ui {
      * @param tasks tasks to display
      */
     public void showTaskList(List<Task> tasks) {
+        assert tasks != null : "Task list cannot be null";
         showIndexedTasks(" Here are the tasks in your list:", tasks);
     }
 
@@ -116,10 +120,13 @@ public class Ui {
      * @param tasks matching tasks to display
      */
     public void showMatchingTasks(List<Task> tasks) {
+        assert tasks != null : "Matching tasks list cannot be null";
         showIndexedTasks(" Here are the matching tasks in your list:", tasks);
     }
 
     private void showIndexedTasks(String header, List<Task> tasks) {
+        assert header != null : "Header cannot be null";
+        assert tasks != null : "Task list cannot be null";
         showMessage(header);
         for (int i = 0; i < tasks.size(); i++) {
             showMessage(" " + (i + 1) + "." + tasks.get(i));

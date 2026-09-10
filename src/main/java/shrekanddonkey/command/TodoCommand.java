@@ -30,10 +30,15 @@ public class TodoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList collaborator cannot be null";
+        assert ui != null : "Ui collaborator cannot be null";
+        assert storage != null : "Storage collaborator cannot be null";
+        assert arguments != null : "Command arguments cannot be null";
         try {
             if (arguments.isEmpty()) {
                 throw new ShrekAndDonkeyException("todo");
             }
+            assert !arguments.isEmpty() : "Arguments should not be empty when adding todo";
             tasks.add(new Todo(arguments));
             ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
         } catch (ShrekAndDonkeyException e) {

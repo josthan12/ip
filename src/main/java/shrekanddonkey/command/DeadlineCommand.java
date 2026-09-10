@@ -34,6 +34,10 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList collaborator cannot be null";
+        assert ui != null : "Ui collaborator cannot be null";
+        assert storage != null : "Storage collaborator cannot be null";
+        assert arguments != null : "Command arguments cannot be null";
         int byMarkerIndex = arguments.indexOf("/by");
         if (byMarkerIndex < 0) {
             ui.showMessage(" Please specify a deadline using /by.");
@@ -48,6 +52,7 @@ public class DeadlineCommand extends Command {
             }
             String deadlineText = arguments.substring(byMarkerIndex + "/by".length()).trim();
             LocalDateTime deadline = Parser.parseDateTime(deadlineText);
+            assert deadline != null : "Parsed deadline cannot be null";
             tasks.add(new Deadline(description, deadline));
             ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
         } catch (ShrekAndDonkeyException e) {

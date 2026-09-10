@@ -28,6 +28,10 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList collaborator cannot be null";
+        assert ui != null : "Ui collaborator cannot be null";
+        assert storage != null : "Storage collaborator cannot be null";
+        assert arguments != null : "Command arguments cannot be null";
         try {
             int taskIndex = Integer.parseInt(arguments) - 1;
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
