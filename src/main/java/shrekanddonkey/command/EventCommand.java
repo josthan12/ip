@@ -34,6 +34,10 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList collaborator cannot be null";
+        assert ui != null : "Ui collaborator cannot be null";
+        assert storage != null : "Storage collaborator cannot be null";
+        assert arguments != null : "Command arguments cannot be null";
         int fromMarkerIndex = arguments.indexOf("/from");
         int toMarkerIndex = arguments.indexOf("/to", fromMarkerIndex + "/from".length());
         try {
@@ -52,6 +56,8 @@ public class EventCommand extends Command {
                 if (end.isBefore(start)) {
                     ui.showMessage(" Please ensure the event end is not before its start.");
                 } else {
+                    assert start != null && end != null : "Parsed event dates cannot be null";
+                    assert !end.isBefore(start) : "Event end time cannot be before start time";
                     tasks.add(new Event(description, start, end));
                     ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
                 }

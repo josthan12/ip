@@ -29,12 +29,17 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList collaborator cannot be null";
+        assert ui != null : "Ui collaborator cannot be null";
+        assert storage != null : "Storage collaborator cannot be null";
+        assert arguments != null : "Command arguments cannot be null";
         try {
             int taskIndex = Integer.parseInt(arguments) - 1;
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
                 ui.showMessage(" Please enter a task number from 1 to " + tasks.size() + ".");
             } else {
                 Task removedTask = tasks.remove(taskIndex);
+                assert removedTask != null : "Removed task should not be null";
                 ui.showMessage(" Noted. I've removed this task:");
                 ui.showMessage("   " + removedTask);
                 ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");

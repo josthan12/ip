@@ -41,6 +41,9 @@ public class ShrekAndDonkey {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.taskList = new TaskList();
+        assert this.ui != null : "Ui must be initialized";
+        assert this.storage != null : "Storage must be initialized";
+        assert this.taskList != null : "TaskList must be initialized";
     }
 
     /**
@@ -60,6 +63,7 @@ public class ShrekAndDonkey {
      * @return response string from the chatbot
      */
     public String getResponse(String input) {
+        assert input != null : "User input cannot be null";
         ui.clearOutput();
         Parser.CommandType commandType = Parser.parseCommandType(input);
         if (commandType == Parser.CommandType.EXIT) {
@@ -87,7 +91,9 @@ public class ShrekAndDonkey {
         } else {
             ui.showMessage("NO VALID INPUT GIVEN,PWEASE TRY AGAIN");
         }
-        return ui.getRecordedOutput();
+        String response = ui.getRecordedOutput();
+        assert response != null : "Chatbot response cannot be null";
+        return response;
     }
 
     /**

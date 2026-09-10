@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'jacoco'
     id 'com.gradleup.shadow' version '9.5.1'
 }
 
@@ -37,6 +38,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    enableAssertions = true
 
     testLogging {
         events 'passed', 'skipped', 'failed'
@@ -47,6 +49,12 @@ test {
         showStackTraces = true
         showStandardStreams = false
     }
+
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
 }
 
 application {
@@ -66,4 +74,5 @@ shadowJar {
 
 run {
     standardInput = System.in
+    enableAssertions = true
 }

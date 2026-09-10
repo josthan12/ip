@@ -97,6 +97,9 @@ public class Parser {
      * @return command arguments, or an empty string when none are provided
      */
     public static String getArguments(String input, String command) {
+        assert input != null : "Input cannot be null";
+        assert command != null : "Command word cannot be null";
+        assert input.length() >= command.length() : "Input length must be at least command length";
         return input.substring(command.length()).trim();
     }
 
@@ -108,6 +111,8 @@ public class Parser {
      * @throws DateTimeParseException if the text is not a supported date format
      */
     public static LocalDateTime parseDateTime(String text) {
+        assert text != null : "Date text to parse cannot be null";
+        assert !text.trim().isEmpty() : "Date text cannot be empty";
         try {
             return LocalDateTime.parse(text, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         } catch (DateTimeParseException ignoredIsoDateTime) {

@@ -31,6 +31,10 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList collaborator cannot be null";
+        assert ui != null : "Ui collaborator cannot be null";
+        assert storage != null : "Storage collaborator cannot be null";
+        assert arguments != null : "Command arguments cannot be null";
         if (arguments.isEmpty()) {
             ui.showMessage(" Please enter a keyword after 'find'.");
             ui.showDivider();
@@ -38,6 +42,7 @@ public class FindCommand extends Command {
         }
 
         List<Task> matchingTasks = tasks.findTasks(arguments);
+        assert matchingTasks != null : "Matching tasks list cannot be null";
         ui.showMatchingTasks(matchingTasks);
         ui.showDivider();
     }

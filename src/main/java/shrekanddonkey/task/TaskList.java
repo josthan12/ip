@@ -23,7 +23,10 @@ public class TaskList {
      * @param task task to add
      */
     public void add(Task task) {
+        assert task != null : "Task to add cannot be null";
+        int initialSize = tasks.size();
         tasks.add(task);
+        assert tasks.size() == initialSize + 1 : "TaskList size should increment after adding task";
     }
 
     /**
@@ -71,6 +74,7 @@ public class TaskList {
      * @return list of matching tasks
      */
     public List<Task> findTasks(String keyword) {
+        assert keyword != null : "Search keyword cannot be null";
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
