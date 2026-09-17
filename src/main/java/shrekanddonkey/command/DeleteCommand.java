@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
         try {
             int taskIndex = Integer.parseInt(arguments) - 1;
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
-                ui.showMessage(" Please enter a task number from 1 to " + tasks.size() + ".");
+                ui.showError(" Please enter a task number from 1 to " + tasks.size() + ".");
             } else {
                 Task removedTask = tasks.remove(taskIndex);
                 assert removedTask != null : "Removed task should not be null";
@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
                 ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
             }
         } catch (NumberFormatException e) {
-            ui.showMessage(" Please enter a valid task number after 'delete'.");
+            ui.showError(" Please enter a valid task number after 'delete'.");
         }
         ui.showDivider();
     }

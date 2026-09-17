@@ -68,9 +68,14 @@ public class MainWindow extends AnchorPane {
 
         boolean shouldExit = shrekAndDonkey.isExit(input);
         String response = shrekAndDonkey.getResponse(input);
+        boolean isError = shrekAndDonkey.isLastResponseError();
+        DialogBox shrekDialog = isError
+                ? DialogBox.getShrekErrorDialog(response, shrekImage)
+                : DialogBox.getShrekDialog(response, shrekImage);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getShrekDialog(response, shrekImage)
+                shrekDialog
         );
         userInput.clear();
 

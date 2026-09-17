@@ -35,7 +35,7 @@ public class ReadCommand extends Command {
         assert storage != null : "Storage collaborator cannot be null";
         assert arguments != null : "Command arguments cannot be null";
         if (arguments.isEmpty()) {
-            ui.showMessage("Please specify a file name after 'read'.");
+            ui.showError("Please specify a file name after 'read'.");
             return;
         }
 
@@ -46,7 +46,7 @@ public class ReadCommand extends Command {
             }
             ui.showDivider();
         } catch (IOException e) {
-            ui.showMessage("File not found: " + relativePath);
+            ui.showError("File not found: " + relativePath);
         }
     }
 }

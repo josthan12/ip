@@ -92,7 +92,7 @@ public class ShrekAndDonkey {
         } else if (commandType == Parser.CommandType.READ) {
             new ReadCommand(Parser.getArguments(input, "read")).execute(taskList, ui, storage);
         } else {
-            ui.showMessage("NO VALID INPUT GIVEN,PWEASE TRY AGAIN");
+            ui.showError("NO VALID INPUT GIVEN,PWEASE TRY AGAIN");
         }
         String response = ui.getRecordedOutput();
         assert response != null : "Chatbot response cannot be null";
@@ -105,6 +105,15 @@ public class ShrekAndDonkey {
      * @param input message entered by the user
      * @return {@code true} if the input is a bye/exit command
      */
+    /**
+     * Returns whether the last processed command produced an error.
+     *
+     * @return {@code true} if the last response is an error
+     */
+    public boolean isLastResponseError() {
+        return ui.isError();
+    }
+
     public boolean isExit(String input) {
         return Parser.parseCommandType(input) == Parser.CommandType.EXIT;
     }

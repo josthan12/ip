@@ -40,7 +40,7 @@ public class DeadlineCommand extends Command {
         assert arguments != null : "Command arguments cannot be null";
         int byMarkerIndex = arguments.indexOf("/by");
         if (byMarkerIndex < 0) {
-            ui.showMessage(" Please specify a deadline using /by.");
+            ui.showError(" Please specify a deadline using /by.");
             ui.showDivider();
             return;
         }
@@ -56,9 +56,9 @@ public class DeadlineCommand extends Command {
             tasks.add(new Deadline(description, deadline));
             ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
         } catch (ShrekAndDonkeyException e) {
-            ui.showMessage("OOPS!!UWU description of a " + e.getMessage() + " cannot be empty UwU");
+            ui.showError("OOPS!!UWU description of a " + e.getMessage() + " cannot be empty UwU");
         } catch (DateTimeParseException e) {
-            ui.showMessage(" Please enter a valid deadline date (yyyy-MM-dd, yyyy-MM-dd HH:mm, "
+            ui.showError(" Please enter a valid deadline date (yyyy-MM-dd, yyyy-MM-dd HH:mm, "
                     + "or d/M/yyyy HHmm).");
         }
         ui.showDivider();

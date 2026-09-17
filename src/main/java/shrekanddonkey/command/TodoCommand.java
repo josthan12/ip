@@ -42,7 +42,7 @@ public class TodoCommand extends Command {
             tasks.add(new Todo(arguments));
             ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
         } catch (ShrekAndDonkeyException e) {
-            ui.showMessage("OOPS!!UWU description of a " + e.getMessage() + " cannot be empty UwU");
+            ui.showError("OOPS!!UWU description of a " + e.getMessage() + " cannot be empty UwU");
         }
         ui.showDivider();
     }

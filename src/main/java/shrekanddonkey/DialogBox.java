@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -37,6 +38,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setClip(new Circle(49.5, 49.5, 49.5));
     }
 
     /**
@@ -71,6 +73,20 @@ public class DialogBox extends HBox {
     public static DialogBox getShrekDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
+        return db;
+    }
+
+    /**
+     * Creates a flipped dialog box styled for error responses from the chatbot.
+     *
+     * @param text error response from the chatbot
+     * @param img chatbot avatar image
+     * @return a new DialogBox with error styling
+     */
+    public static DialogBox getShrekErrorDialog(String text, Image img) {
+        DialogBox db = new DialogBox(text, img);
+        db.flip();
+        db.dialog.getStyleClass().add("error-label");
         return db;
     }
 }

@@ -19,6 +19,7 @@ public class Ui {
 
     private final Scanner scanner;
     private final StringBuilder outputBuffer = new StringBuilder();
+    private boolean isError = false;
 
     /**
      * Creates a UI that reads commands from standard input.
@@ -28,10 +29,20 @@ public class Ui {
     }
 
     /**
-     * Clears recorded messages in the output buffer.
+     * Clears recorded messages in the output buffer and resets error status.
      */
     public void clearOutput() {
         outputBuffer.setLength(0);
+        isError = false;
+    }
+
+    /**
+     * Returns whether the last recorded response was an error.
+     *
+     * @return true if an error was recorded, false otherwise
+     */
+    public boolean isError() {
+        return isError;
     }
 
     /**
@@ -88,6 +99,17 @@ public class Ui {
         assert message != null : "Message to display cannot be null";
         System.out.println(message);
         outputBuffer.append(message).append("\n");
+    }
+
+    /**
+     * Displays one error message and marks the current response as an error.
+     *
+     * @param message error message to display
+     */
+    public void showError(String message) {
+        assert message != null : "Error message to display cannot be null";
+        isError = true;
+        showMessage(message);
     }
 
     /**

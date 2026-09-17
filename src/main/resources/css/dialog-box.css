@@ -8,16 +8,20 @@
     -fx-padding: 6px;
     -fx-border-insets: 0px 7px 0px 7px;
     -fx-background-insets: 0px 7px 0px 7px;
+    -fx-max-width: 340px;
 }
 
 /* ===================== Shrek (reply) chat bubble ===================== */
 /* Applied when DialogBox is flipped via flip() */
 .reply-label {
     -fx-background-color: linear-gradient(to bottom right, #d4edda, #c3e6cb);
+    -fx-border-color: #2e8b57 #3cb371 #2e8b57 #3cb371;
+    -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
     -fx-border-insets: 0px 7px 0px 7px;
     -fx-background-insets: 0px 7px 0px 7px;
+    -fx-max-width: 340px;
 }
 
 /* ===================== Avatar image ===================== */
@@ -26,4 +30,17 @@
     -fx-scale-x: 1;
     -fx-scale-y: 1;
     -fx-rotate: 0;
+}
+
+/* ===================== Shrek error chat bubble ===================== */
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #ffebee, #ffcdd2);
+    -fx-border-color: #e53935 #d32f2f #e53935 #d32f2f;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-background-insets: 0px 7px 0px 7px;
+    -fx-text-fill: #b71c1c;
+    -fx-max-width: 340px;
 }

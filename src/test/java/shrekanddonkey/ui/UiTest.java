@@ -61,4 +61,21 @@ public class UiTest {
         assertTrue(output.contains("Here are the matching tasks in your list:"));
         assertTrue(output.contains("1.[T][ ] read book"));
     }
+
+    @Test
+    public void showError_errorMessage_setsErrorFlagAndRecordsOutput() {
+        Ui ui = new Ui();
+        ui.showError("Something went wrong");
+        org.junit.jupiter.api.Assertions.assertTrue(ui.isError());
+        org.junit.jupiter.api.Assertions.assertEquals("Something went wrong", ui.getRecordedOutput());
+    }
+
+    @Test
+    public void clearOutput_afterError_resetsErrorFlag() {
+        Ui ui = new Ui();
+        ui.showError("Something went wrong");
+        ui.clearOutput();
+        org.junit.jupiter.api.Assertions.assertFalse(ui.isError());
+        org.junit.jupiter.api.Assertions.assertEquals("", ui.getRecordedOutput());
+    }
 }

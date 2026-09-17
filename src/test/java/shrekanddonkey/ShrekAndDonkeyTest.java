@@ -81,4 +81,18 @@ public class ShrekAndDonkeyTest {
         assertTrue(bot.isExit("bye"));
         assertFalse(bot.isExit("list"));
     }
+
+    @Test
+    public void isLastResponseError_invalidCommand_returnsTrue() {
+        ShrekAndDonkey bot = new ShrekAndDonkey();
+        bot.getResponse("invalidcommand123");
+        assertTrue(bot.isLastResponseError());
+    }
+
+    @Test
+    public void isLastResponseError_validCommand_returnsFalse() {
+        ShrekAndDonkey bot = new ShrekAndDonkey();
+        bot.getResponse("todo read book");
+        assertFalse(bot.isLastResponseError());
+    }
 }

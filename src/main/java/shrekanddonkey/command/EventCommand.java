@@ -42,7 +42,7 @@ public class EventCommand extends Command {
         int toMarkerIndex = arguments.indexOf("/to", fromMarkerIndex + "/from".length());
         try {
             if (fromMarkerIndex < 0 || toMarkerIndex < 0) {
-                ui.showMessage(" Please specify an event using /from and /to.");
+                ui.showError(" Please specify an event using /from and /to.");
             } else {
                 String description = arguments.substring(0, fromMarkerIndex).trim();
                 if (description.isEmpty()) {
@@ -54,7 +54,7 @@ public class EventCommand extends Command {
                 LocalDateTime start = Parser.parseDateTime(startText);
                 LocalDateTime end = Parser.parseDateTime(endText);
                 if (end.isBefore(start)) {
-                    ui.showMessage(" Please ensure the event end is not before its start.");
+                    ui.showError(" Please ensure the event end is not before its start.");
                 } else {
                     assert start != null && end != null : "Parsed event dates cannot be null";
                     assert !end.isBefore(start) : "Event end time cannot be before start time";
@@ -63,9 +63,9 @@ public class EventCommand extends Command {
                 }
             }
         } catch (ShrekAndDonkeyException e) {
-            ui.showMessage("OOPS!!UWU description of a " + e.getMessage() + " cannot be empty UwU");
+            ui.showError("OOPS!!UWU description of a " + e.getMessage() + " cannot be empty UwU");
         } catch (DateTimeParseException e) {
-            ui.showMessage(" Please enter valid event dates (yyyy-MM-dd, yyyy-MM-dd HH:mm, "
+            ui.showError(" Please enter valid event dates (yyyy-MM-dd, yyyy-MM-dd HH:mm, "
                     + "or d/M/yyyy HHmm).");
         }
         ui.showDivider();
