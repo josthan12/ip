@@ -22,14 +22,14 @@ public class ShrekAndDonkeyTest {
     public void getResponse_invalidCommand_returnsErrorMessage() {
         ShrekAndDonkey bot = new ShrekAndDonkey();
         String response = bot.getResponse("invalid command");
-        assertTrue(response.contains("NO VALID INPUT GIVEN"));
+        assertTrue(response.contains("What are ye doing in my swamp?!"));
     }
 
     @Test
     public void getResponse_validTodo_returnsTaskAddedMessage() {
         ShrekAndDonkey bot = new ShrekAndDonkey();
         String response = bot.getResponse("todo read book");
-        assertTrue(response.contains("Got it. I've added this task:"));
+        assertTrue(response.contains("Alright, added to the swamp list:"));
         assertTrue(response.contains("read book"));
     }
 
@@ -57,19 +57,19 @@ public class ShrekAndDonkeyTest {
         assertTrue(listResponse.contains("3.[E][ ] gala"));
 
         String markResponse = bot.getResponse("mark 1");
-        assertTrue(markResponse.contains("Nice! I've marked this task as done:"));
+        assertTrue(markResponse.contains("Shrek approves! Marked as done:"));
         assertTrue(markResponse.contains("[T][X] read book"));
 
         String unmarkResponse = bot.getResponse("unmark 1");
-        assertTrue(unmarkResponse.contains("OK, I've marked this task as not done yet:"));
+        assertTrue(unmarkResponse.contains("Back in the swamp it goes! Unmarked:"));
         assertTrue(unmarkResponse.contains("[T][ ] read book"));
 
         String findResponse = bot.getResponse("find essay");
-        assertTrue(findResponse.contains("Here are the matching tasks in your list:"));
+        assertTrue(findResponse.contains("Donkey found these in the swamp:"));
         assertTrue(findResponse.contains("essay"));
 
         String deleteResponse = bot.getResponse("delete 1");
-        assertTrue(deleteResponse.contains("Noted. I've removed this task:"));
+        assertTrue(deleteResponse.contains("Poof! Banished from the swamp:"));
 
         String exitResponse = bot.getResponse("bye");
         assertTrue(exitResponse.contains("GET OUT OF MY SWAMP!"));

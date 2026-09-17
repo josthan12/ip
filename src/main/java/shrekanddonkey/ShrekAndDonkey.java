@@ -92,19 +92,14 @@ public class ShrekAndDonkey {
         } else if (commandType == Parser.CommandType.READ) {
             new ReadCommand(Parser.getArguments(input, "read")).execute(taskList, ui, storage);
         } else {
-            ui.showError("NO VALID INPUT GIVEN,PWEASE TRY AGAIN");
+            ui.showError("What are ye doing in my swamp?! Try: list, todo, deadline,"
+                    + " event, mark, unmark, delete, find, sort, bye");
         }
         String response = ui.getRecordedOutput();
         assert response != null : "Chatbot response cannot be null";
         return response;
     }
 
-    /**
-     * Returns whether the given input is an exit command.
-     *
-     * @param input message entered by the user
-     * @return {@code true} if the input is a bye/exit command
-     */
     /**
      * Returns whether the last processed command produced an error.
      *
@@ -114,6 +109,12 @@ public class ShrekAndDonkey {
         return ui.isError();
     }
 
+    /**
+     * Returns whether the given input is an exit command.
+     *
+     * @param input message entered by the user
+     * @return {@code true} if the input is a bye/exit command
+     */
     public boolean isExit(String input) {
         return Parser.parseCommandType(input) == Parser.CommandType.EXIT;
     }

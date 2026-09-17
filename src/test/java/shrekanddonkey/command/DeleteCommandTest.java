@@ -25,7 +25,7 @@ public class DeleteCommandTest {
         new DeleteCommand("1").execute(tasks, ui, storage);
 
         assertEquals(0, tasks.size());
-        assertTrue(ui.getRecordedOutput().contains("Noted. I've removed this task:"));
+        assertTrue(ui.getRecordedOutput().contains("Poof! Banished from the swamp:"));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class DeleteCommandTest {
 
         new DeleteCommand("1").execute(tasks, ui, storage);
 
-        assertTrue(ui.getRecordedOutput().contains("Please enter a task number"));
+        assertTrue(ui.getRecordedOutput().contains("Pick a number from 1 to"));
     }
 
     @Test
@@ -47,6 +47,6 @@ public class DeleteCommandTest {
 
         new DeleteCommand("abc").execute(tasks, ui, storage);
 
-        assertTrue(ui.getRecordedOutput().contains("Please enter a valid task number"));
+        assertTrue(ui.getRecordedOutput().contains("That's not a number! Use: delete N"));
     }
 }

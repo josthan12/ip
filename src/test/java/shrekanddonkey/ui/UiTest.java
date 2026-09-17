@@ -36,9 +36,9 @@ public class UiTest {
         Task task = new Todo("read book");
         ui.showTaskAdded(task, 1);
         String output = ui.getRecordedOutput();
-        assertTrue(output.contains("Got it. I've added this task:"));
+        assertTrue(output.contains("Alright, added to the swamp list:"));
         assertTrue(output.contains("[T][ ] read book"));
-        assertTrue(output.contains("Now you have 1 tasks in the list."));
+        assertTrue(output.contains("Now ye have 1 tasks in the swamp."));
     }
 
     @Test
@@ -48,6 +48,7 @@ public class UiTest {
         Task task2 = new Todo("wash car");
         ui.showTaskList(List.of(task1, task2));
         String output = ui.getRecordedOutput();
+        assertTrue(output.contains("Here's what's lurkin' in the swamp:"));
         assertTrue(output.contains("1.[T][ ] read book"));
         assertTrue(output.contains("2.[T][ ] wash car"));
     }
@@ -58,7 +59,7 @@ public class UiTest {
         Task task = new Todo("read book");
         ui.showMatchingTasks(List.of(task));
         String output = ui.getRecordedOutput();
-        assertTrue(output.contains("Here are the matching tasks in your list:"));
+        assertTrue(output.contains("Donkey found these in the swamp:"));
         assertTrue(output.contains("1.[T][ ] read book"));
     }
 

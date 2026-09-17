@@ -23,7 +23,7 @@ public class EventCommandTest {
         new EventCommand("meeting /from 2026-10-15 10:00 /to 2026-10-15 12:00").execute(tasks, ui, storage);
 
         assertEquals(1, tasks.size());
-        assertTrue(ui.getRecordedOutput().contains("Got it. I've added this task:"));
+        assertTrue(ui.getRecordedOutput().contains("Alright, added to the swamp list:"));
         assertTrue(ui.getRecordedOutput().contains("[E][ ] meeting"));
     }
 

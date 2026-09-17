@@ -36,16 +36,16 @@ public class DeleteCommand extends Command {
         try {
             int taskIndex = Integer.parseInt(arguments) - 1;
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
-                ui.showError(" Please enter a task number from 1 to " + tasks.size() + ".");
+                ui.showError(" Pick a number from 1 to " + tasks.size() + ", not that hard!");
             } else {
                 Task removedTask = tasks.remove(taskIndex);
                 assert removedTask != null : "Removed task should not be null";
-                ui.showMessage(" Noted. I've removed this task:");
+                ui.showMessage(" Poof! Banished from the swamp:");
                 ui.showMessage("   " + removedTask);
-                ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
+                ui.showMessage(" Now ye have " + tasks.size() + " tasks in the swamp.");
             }
         } catch (NumberFormatException e) {
-            ui.showError(" Please enter a valid task number after 'delete'.");
+            ui.showError(" That's not a number! Use: delete N");
         }
         ui.showDivider();
     }

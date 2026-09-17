@@ -26,7 +26,7 @@ public class MarkCommandTest {
         new MarkCommand("1").execute(tasks, ui, storage);
 
         assertEquals("X", todo.getStatusIcon());
-        assertTrue(ui.getRecordedOutput().contains("Nice! I've marked this task as done:"));
+        assertTrue(ui.getRecordedOutput().contains("Shrek approves! Marked as done:"));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class MarkCommandTest {
 
         new MarkCommand("5").execute(tasks, ui, storage);
 
-        assertTrue(ui.getRecordedOutput().contains("Please enter a task number"));
+        assertTrue(ui.getRecordedOutput().contains("Pick a number from 1 to"));
     }
 
     @Test
@@ -48,6 +48,6 @@ public class MarkCommandTest {
 
         new MarkCommand("abc").execute(tasks, ui, storage);
 
-        assertTrue(ui.getRecordedOutput().contains("Please enter a valid task number after 'mark'"));
+        assertTrue(ui.getRecordedOutput().contains("That's not a number! Use: mark N"));
     }
 }

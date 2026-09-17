@@ -23,7 +23,7 @@ public class TodoCommandTest {
         new TodoCommand("read book").execute(tasks, ui, storage);
 
         assertEquals(1, tasks.size());
-        assertTrue(ui.getRecordedOutput().contains("Got it. I've added this task:"));
+        assertTrue(ui.getRecordedOutput().contains("Alright, added to the swamp list:"));
         assertTrue(ui.getRecordedOutput().contains("[T][ ] read book"));
     }
 

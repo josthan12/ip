@@ -27,7 +27,7 @@ public class UnmarkCommandTest {
         new UnmarkCommand("1").execute(tasks, ui, storage);
 
         assertEquals(" ", todo.getStatusIcon());
-        assertTrue(ui.getRecordedOutput().contains("OK, I've marked this task as not done yet:"));
+        assertTrue(ui.getRecordedOutput().contains("Back in the swamp it goes! Unmarked:"));
     }
 
     @Test
@@ -38,7 +38,7 @@ public class UnmarkCommandTest {
 
         new UnmarkCommand("5").execute(tasks, ui, storage);
 
-        assertTrue(ui.getRecordedOutput().contains("Please enter a task number"));
+        assertTrue(ui.getRecordedOutput().contains("Pick a number from 1 to"));
     }
 
     @Test
@@ -49,6 +49,6 @@ public class UnmarkCommandTest {
 
         new UnmarkCommand("abc").execute(tasks, ui, storage);
 
-        assertTrue(ui.getRecordedOutput().contains("Please enter a valid task number after 'unmark'"));
+        assertTrue(ui.getRecordedOutput().contains("That's not a number! Use: unmark N"));
     }
 }

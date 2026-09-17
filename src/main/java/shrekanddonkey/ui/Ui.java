@@ -121,9 +121,9 @@ public class Ui {
     public void showTaskAdded(Task task, int taskCount) {
         assert task != null : "Task cannot be null";
         assert taskCount >= 0 : "Task count cannot be negative";
-        showMessage(" Got it. I've added this task:");
+        showMessage(" Alright, added to the swamp list:");
         showMessage("   " + task);
-        showMessage(" Now you have " + taskCount + " tasks in the list.");
+        showMessage(" Now ye have " + taskCount + " tasks in the swamp.");
     }
 
     /**
@@ -133,7 +133,7 @@ public class Ui {
      */
     public void showTaskList(List<Task> tasks) {
         assert tasks != null : "Task list cannot be null";
-        showIndexedTasks(" Here are the tasks in your list:", tasks);
+        showIndexedTasks(" Here's what's lurkin' in the swamp:", tasks);
     }
 
     /**
@@ -143,7 +143,7 @@ public class Ui {
      */
     public void showMatchingTasks(List<Task> tasks) {
         assert tasks != null : "Matching tasks list cannot be null";
-        showIndexedTasks(" Here are the matching tasks in your list:", tasks);
+        showIndexedTasks(" Donkey found these in the swamp:", tasks);
     }
 
     private void showIndexedTasks(String header, List<Task> tasks) {

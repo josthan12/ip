@@ -25,7 +25,7 @@ public class ListCommandTest {
         new ListCommand().execute(tasks, ui, storage);
 
         String output = ui.getRecordedOutput();
-        assertTrue(output.contains("Here are the tasks in your list:"));
+        assertTrue(output.contains("Here's what's lurkin' in the swamp:"));
         assertTrue(output.contains("1.[T][ ] read book"));
         assertTrue(output.contains("2.[T][ ] return book"));
     }

@@ -35,14 +35,14 @@ public class MarkCommand extends Command {
         try {
             int taskIndex = Integer.parseInt(arguments) - 1;
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
-                ui.showError(" Please enter a task number from 1 to " + tasks.size() + ".");
+                ui.showError(" Pick a number from 1 to " + tasks.size() + ", not that hard!");
             } else {
                 tasks.get(taskIndex).markAsDone();
-                ui.showMessage(" Nice! I've marked this task as done:");
+                ui.showMessage(" Shrek approves! Marked as done:");
                 ui.showMessage("   " + tasks.get(taskIndex));
             }
         } catch (NumberFormatException e) {
-            ui.showError(" Please enter a valid task number after 'mark'.");
+            ui.showError(" That's not a number! Use: mark N");
         }
         ui.showDivider();
     }

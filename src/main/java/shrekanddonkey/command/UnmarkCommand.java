@@ -35,14 +35,14 @@ public class UnmarkCommand extends Command {
         try {
             int taskIndex = Integer.parseInt(arguments) - 1;
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
-                ui.showError(" Please enter a task number from 1 to " + tasks.size() + ".");
+                ui.showError(" Pick a number from 1 to " + tasks.size() + ", not that hard!");
             } else {
                 tasks.get(taskIndex).markAsNotDone();
-                ui.showMessage(" OK, I've marked this task as not done yet:");
+                ui.showMessage(" Back in the swamp it goes! Unmarked:");
                 ui.showMessage("   " + tasks.get(taskIndex));
             }
         } catch (NumberFormatException e) {
-            ui.showError(" Please enter a valid task number after 'unmark'.");
+            ui.showError(" That's not a number! Use: unmark N");
         }
         ui.showDivider();
     }
