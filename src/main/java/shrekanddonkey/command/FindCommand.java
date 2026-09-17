@@ -36,7 +36,7 @@ public class FindCommand extends Command {
         assert storage != null : "Storage collaborator cannot be null";
         assert arguments != null : "Command arguments cannot be null";
         if (arguments.isEmpty()) {
-            ui.showMessage(" Please enter a keyword after 'find'.");
+            ui.showError(" Please enter a keyword after 'find'.");
             ui.showDivider();
             return;
         }

@@ -32,7 +32,7 @@ public class WriteCommand extends Command {
             storage.save(tasks.getTasks());
             ui.showMessage("Successfully written");
         } catch (IOException e) {
-            ui.showMessage("Unable to write to ./data/happyFile.txt");
+            ui.showError("Unable to write to the task file.");
         }
         ui.showDivider();
     }
