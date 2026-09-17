@@ -16,7 +16,7 @@ public class FindCommand extends Command {
     /**
      * Creates a find command with the search keyword argument.
      *
-     * @param arguments text following the {@code find} command
+     * @param arguments text following the {@code find} command.
      */
     public FindCommand(String arguments) {
         this.arguments = arguments;
@@ -25,9 +25,9 @@ public class FindCommand extends Command {
     /**
      * Finds and displays tasks whose description contains the search keyword.
      *
-     * @param tasks application's task list
-     * @param ui application's user interface
-     * @param storage application's file storage, which is not used
+     * @param tasks application's task list.
+     * @param ui application's user interface.
+     * @param storage application's file storage, which is not used.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

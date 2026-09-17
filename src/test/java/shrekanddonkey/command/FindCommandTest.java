@@ -1,6 +1,6 @@
 package shrekanddonkey.command;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -22,10 +22,14 @@ public class FindCommandTest {
         Task otherTask = new Task("sleep");
         taskList.add(matchTask);
         taskList.add(otherTask);
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test.txt");
 
         FindCommand command = new FindCommand("book");
-        assertEquals(1, taskList.findTasks("book").size());
-        assertEquals(matchTask, taskList.findTasks("book").get(0));
+        command.execute(taskList, ui, storage);
+
+        assertTrue(ui.getRecordedOutput().contains("1.[ ] read book"));
+        assertFalse(ui.getRecordedOutput().contains("sleep"));
     }
 
     @Test

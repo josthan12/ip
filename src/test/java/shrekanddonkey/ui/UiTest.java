@@ -1,6 +1,7 @@
 package shrekanddonkey.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -67,8 +68,8 @@ public class UiTest {
     public void showError_errorMessage_setsErrorFlagAndRecordsOutput() {
         Ui ui = new Ui();
         ui.showError("Something went wrong");
-        org.junit.jupiter.api.Assertions.assertTrue(ui.isError());
-        org.junit.jupiter.api.Assertions.assertEquals("Something went wrong", ui.getRecordedOutput());
+        assertTrue(ui.isError());
+        assertEquals("Something went wrong", ui.getRecordedOutput());
     }
 
     @Test
@@ -76,7 +77,7 @@ public class UiTest {
         Ui ui = new Ui();
         ui.showError("Something went wrong");
         ui.clearOutput();
-        org.junit.jupiter.api.Assertions.assertFalse(ui.isError());
-        org.junit.jupiter.api.Assertions.assertEquals("", ui.getRecordedOutput());
+        assertFalse(ui.isError());
+        assertEquals("", ui.getRecordedOutput());
     }
 }

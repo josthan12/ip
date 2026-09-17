@@ -11,9 +11,9 @@ public class SortCommand extends Command {
     /**
      * Sorts tasks by deadline or event start date and displays the result.
      *
-     * @param tasks application's task list
-     * @param ui application's user interface
-     * @param storage application's file storage
+     * @param tasks application's task list.
+     * @param ui application's user interface.
+     * @param storage application's file storage.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -22,5 +22,6 @@ public class SortCommand extends Command {
 
         tasks.sortByDate();
         ui.showTaskList(tasks.getTasks());
+        ui.showDivider();
     }
 }

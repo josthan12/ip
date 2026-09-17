@@ -17,7 +17,7 @@ public class Storage {
     /**
      * Creates storage backed by the given file path.
      *
-     * @param filePath path of the task file
+     * @param filePath path of the task file.
      */
     public Storage(String filePath) {
         assert filePath != null : "Storage file path cannot be null";
@@ -27,8 +27,8 @@ public class Storage {
     /**
      * Saves each task on its own line, creating the parent directory if needed.
      *
-     * @param tasks tasks to save
-     * @throws IOException if the directory or file cannot be written
+     * @param tasks tasks to save.
+     * @throws IOException if the directory or file cannot be written.
      */
     public void save(List<Task> tasks) throws IOException {
         assert tasks != null : "Task list to save cannot be null";
@@ -47,8 +47,8 @@ public class Storage {
     /**
      * Loads the file as display lines for the current read command.
      *
-     * @return lines contained in the task file
-     * @throws IOException if the file cannot be read
+     * @return lines contained in the task file.
+     * @throws IOException if the file cannot be read.
      */
     public List<String> loadLines() throws IOException {
         return Files.readAllLines(filePath, StandardCharsets.UTF_8);

@@ -43,12 +43,12 @@ public class MainWindow extends AnchorPane {
     /**
      * Injects the ShrekAndDonkey chatbot instance and displays the welcome message.
      *
-     * @param s chatbot instance
+     * @param chatbot chatbot instance.
      */
-    public void setShrekAndDonkey(ShrekAndDonkey s) {
-        assert s != null : "ShrekAndDonkey instance cannot be null";
+    public void setShrekAndDonkey(ShrekAndDonkey chatbot) {
+        assert chatbot != null : "ShrekAndDonkey instance cannot be null";
         assert dialogContainer != null : "dialogContainer must be initialized before setting bot";
-        shrekAndDonkey = s;
+        shrekAndDonkey = chatbot;
         dialogContainer.getChildren().add(
                 DialogBox.getShrekDialog(shrekAndDonkey.getWelcomeMessage(), shrekImage)
         );

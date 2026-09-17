@@ -19,9 +19,9 @@ public class WriteCommand extends Command {
     /**
      * Saves the current task list to the configured storage file.
      *
-     * @param tasks application's task list
-     * @param ui application's user interface
-     * @param storage application's file storage
+     * @param tasks application's task list.
+     * @param ui application's user interface.
+     * @param storage application's file storage.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

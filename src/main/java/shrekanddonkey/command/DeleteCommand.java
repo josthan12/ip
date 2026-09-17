@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     /**
      * Creates a delete command with its raw task-number argument.
      *
-     * @param arguments text following the {@code delete} command
+     * @param arguments text following the {@code delete} command.
      */
     public DeleteCommand(String arguments) {
         this.arguments = arguments;
@@ -23,9 +23,9 @@ public class DeleteCommand extends Command {
     /**
      * Removes the selected task, or displays an error when the task number is invalid.
      *
-     * @param tasks application's task list
-     * @param ui application's user interface
-     * @param storage application's file storage, which is not used
+     * @param tasks application's task list.
+     * @param ui application's user interface.
+     * @param storage application's file storage, which is not used.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

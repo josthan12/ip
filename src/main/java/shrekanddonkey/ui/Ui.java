@@ -39,7 +39,7 @@ public class Ui {
     /**
      * Returns whether the last recorded response was an error.
      *
-     * @return true if an error was recorded, false otherwise
+     * @return true if an error was recorded, false otherwise.
      */
     public boolean isError() {
         return isError;
@@ -48,7 +48,7 @@ public class Ui {
     /**
      * Returns all messages recorded in the output buffer since the last clear.
      *
-     * @return the recorded message string
+     * @return the recorded message string.
      */
     public String getRecordedOutput() {
         return outputBuffer.toString().trim();
@@ -57,7 +57,7 @@ public class Ui {
     /**
      * Reads one command from the user.
      *
-     * @return the command entered by the user
+     * @return the command entered by the user.
      */
     public String readCommand() {
         return scanner.nextLine();
@@ -93,7 +93,7 @@ public class Ui {
     /**
      * Displays one chatbot message.
      *
-     * @param message message to display
+     * @param message message to display.
      */
     public void showMessage(String message) {
         assert message != null : "Message to display cannot be null";
@@ -104,7 +104,7 @@ public class Ui {
     /**
      * Displays one error message and marks the current response as an error.
      *
-     * @param message error message to display
+     * @param message error message to display.
      */
     public void showError(String message) {
         assert message != null : "Error message to display cannot be null";
@@ -115,8 +115,8 @@ public class Ui {
     /**
      * Displays the confirmation after a task is added.
      *
-     * @param task task that was added
-     * @param taskCount number of tasks in the list
+     * @param task task that was added.
+     * @param taskCount number of tasks in the list.
      */
     public void showTaskAdded(Task task, int taskCount) {
         assert task != null : "Task cannot be null";
@@ -129,7 +129,7 @@ public class Ui {
     /**
      * Displays all tasks with one-based numbering.
      *
-     * @param tasks tasks to display
+     * @param tasks tasks to display.
      */
     public void showTaskList(List<Task> tasks) {
         assert tasks != null : "Task list cannot be null";
@@ -139,7 +139,7 @@ public class Ui {
     /**
      * Displays all matching tasks with one-based numbering.
      *
-     * @param tasks matching tasks to display
+     * @param tasks matching tasks to display.
      */
     public void showMatchingTasks(List<Task> tasks) {
         assert tasks != null : "Matching tasks list cannot be null";

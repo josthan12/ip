@@ -15,7 +15,7 @@ public class TodoCommand extends Command {
     /**
      * Creates a to-do command with its raw task description.
      *
-     * @param arguments text following the {@code todo} command
+     * @param arguments text following the {@code todo} command.
      */
     public TodoCommand(String arguments) {
         this.arguments = arguments;
@@ -24,9 +24,9 @@ public class TodoCommand extends Command {
     /**
      * Adds a to-do task, or displays an error when the description is empty.
      *
-     * @param tasks application's task list
-     * @param ui application's user interface
-     * @param storage application's file storage, which is not used
+     * @param tasks application's task list.
+     * @param ui application's user interface.
+     * @param storage application's file storage, which is not used.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

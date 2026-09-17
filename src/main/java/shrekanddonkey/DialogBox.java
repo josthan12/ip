@@ -45,9 +45,9 @@ public class DialogBox extends HBox {
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
+        ObservableList<Node> dialogBoxChildren = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(dialogBoxChildren);
+        getChildren().setAll(dialogBoxChildren);
         setAlignment(Pos.TOP_LEFT);
         dialog.getStyleClass().add("reply-label");
     }
@@ -55,9 +55,9 @@ public class DialogBox extends HBox {
     /**
      * Creates a dialog box representing user input.
      *
-     * @param text text entered by user
-     * @param img user avatar image
-     * @return a new DialogBox for the user
+     * @param text text entered by user.
+     * @param img user avatar image.
+     * @return a new DialogBox for the user.
      */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
@@ -66,27 +66,27 @@ public class DialogBox extends HBox {
     /**
      * Creates a flipped dialog box representing the chatbot's response.
      *
-     * @param text text response from the chatbot
-     * @param img chatbot avatar image
-     * @return a new DialogBox for the chatbot
+     * @param text text response from the chatbot.
+     * @param img chatbot avatar image.
+     * @return a new DialogBox for the chatbot.
      */
     public static DialogBox getShrekDialog(String text, Image img) {
-        DialogBox db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        DialogBox dialogBox = new DialogBox(text, img);
+        dialogBox.flip();
+        return dialogBox;
     }
 
     /**
      * Creates a flipped dialog box styled for error responses from the chatbot.
      *
-     * @param text error response from the chatbot
-     * @param img chatbot avatar image
-     * @return a new DialogBox with error styling
+     * @param text error response from the chatbot.
+     * @param img chatbot avatar image.
+     * @return a new DialogBox with error styling.
      */
     public static DialogBox getShrekErrorDialog(String text, Image img) {
-        DialogBox db = new DialogBox(text, img);
-        db.flip();
-        db.dialog.getStyleClass().add("error-label");
-        return db;
+        DialogBox dialogBox = new DialogBox(text, img);
+        dialogBox.flip();
+        dialogBox.dialog.getStyleClass().add("error-label");
+        return dialogBox;
     }
 }

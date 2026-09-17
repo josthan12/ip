@@ -14,7 +14,7 @@ public class ShrekAndDonkeyException extends RuntimeException {
     /**
      * Creates an exception with a detail message.
      *
-     * @param message explanation of the validation error
+     * @param message explanation of the validation error.
      */
     public ShrekAndDonkeyException(String message) {
         super(message);

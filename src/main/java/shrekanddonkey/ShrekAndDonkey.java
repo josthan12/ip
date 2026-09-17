@@ -35,7 +35,7 @@ public class ShrekAndDonkey {
     /**
      * Creates the chatbot application with the specified storage file path.
      *
-     * @param filePath path to the file used for task persistence
+     * @param filePath path to the file used for task persistence.
      */
     public ShrekAndDonkey(String filePath) {
         this.ui = new Ui();
@@ -49,7 +49,7 @@ public class ShrekAndDonkey {
     /**
      * Returns the chatbot welcome message for display.
      *
-     * @return the welcome message string
+     * @return the welcome message string.
      */
     public String getWelcomeMessage() {
         return "Grrr GET OUT OF MY SWAMP! Ohh, I didn't see you there stranger! I'm ShrekAndDonkey.\n"
@@ -59,8 +59,8 @@ public class ShrekAndDonkey {
     /**
      * Generates a response for the user's chat message by parsing and executing the command.
      *
-     * @param input message entered by the user
-     * @return response string from the chatbot
+     * @param input message entered by the user.
+     * @return response string from the chatbot.
      */
     public String getResponse(String input) {
         assert input != null : "User input cannot be null";
@@ -102,7 +102,7 @@ public class ShrekAndDonkey {
     /**
      * Returns whether the last processed command produced an error.
      *
-     * @return {@code true} if the last response is an error
+     * @return {@code true} if the last response is an error.
      */
     public boolean isLastResponseError() {
         return ui.isError();
@@ -111,8 +111,8 @@ public class ShrekAndDonkey {
     /**
      * Returns whether the given input is an exit command.
      *
-     * @param input message entered by the user
-     * @return {@code true} if the input is a bye/exit command
+     * @param input message entered by the user.
+     * @return {@code true} if the input is a bye/exit command.
      */
     public boolean isExit(String input) {
         return Parser.parseCommandType(input) == Parser.CommandType.EXIT;
@@ -121,7 +121,7 @@ public class ShrekAndDonkey {
     /**
      * Starts the chatbot and processes commands until the user exits.
      *
-     * @param args command-line arguments, which are not used
+     * @param args command-line arguments, which are not used.
      */
     public static void main(String[] args) {
         ShrekAndDonkey chatbot = new ShrekAndDonkey();

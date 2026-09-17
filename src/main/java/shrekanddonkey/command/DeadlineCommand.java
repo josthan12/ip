@@ -19,7 +19,7 @@ public class DeadlineCommand extends Command {
     /**
      * Creates a deadline command with its raw description and deadline argument.
      *
-     * @param arguments text following the {@code deadline} command
+     * @param arguments text following the {@code deadline} command.
      */
     public DeadlineCommand(String arguments) {
         this.arguments = arguments;
@@ -28,9 +28,9 @@ public class DeadlineCommand extends Command {
     /**
      * Adds a deadline task, or displays an error when the input is invalid.
      *
-     * @param tasks application's task list
-     * @param ui application's user interface
-     * @param storage application's file storage, which is not used
+     * @param tasks application's task list.
+     * @param ui application's user interface.
+     * @param storage application's file storage, which is not used.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

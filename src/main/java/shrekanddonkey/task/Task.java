@@ -12,7 +12,7 @@ public class Task {
     /**
      * Creates a task that is initially not done.
      *
-     * @param description description of the task
+     * @param description description of the task.
      */
     public Task(String description) {
         assert description != null : "Task description cannot be null";
@@ -23,7 +23,7 @@ public class Task {
     /**
      * Returns the character used to display the task's completion status.
      *
-     * @return {@code X} when done, or a space when not done
+     * @return {@code X} when done, or a space when not done.
      */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
@@ -46,7 +46,7 @@ public class Task {
     /**
      * Returns the description of this task.
      *
-     * @return description text
+     * @return description text.
      */
     public String getDescription() {
         return description;
@@ -55,7 +55,7 @@ public class Task {
     /**
      * Returns the shared status and description portion of a task.
      *
-     * @return task text in the format shown by the chatbot
+     * @return task text in the format shown by the chatbot.
      */
     @Override
     public String toString() {

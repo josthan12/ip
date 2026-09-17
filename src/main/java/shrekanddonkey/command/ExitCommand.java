@@ -17,9 +17,9 @@ public class ExitCommand extends Command {
     /**
      * Displays the chatbot's goodbye message.
      *
-     * @param tasks application's task list, which is not used
-     * @param ui application's user interface
-     * @param storage application's file storage, which is not used
+     * @param tasks application's task list, which is not used.
+     * @param ui application's user interface.
+     * @param storage application's file storage, which is not used.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -32,7 +32,7 @@ public class ExitCommand extends Command {
     /**
      * Indicates that this command ends the chatbot session.
      *
-     * @return {@code true}
+     * @return {@code true}.
      */
     @Override
     public boolean isExit() {

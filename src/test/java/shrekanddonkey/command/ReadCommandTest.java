@@ -1,5 +1,6 @@
 package shrekanddonkey.command;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,19 @@ public class ReadCommandTest {
 
         new ReadCommand("nonExistentFile12345.txt").execute(tasks, ui, storage);
 
-        assertTrue(ui.getRecordedOutput().contains("File not found: ./data/nonExistentFile12345.txt"));
+        assertTrue(ui.getRecordedOutput().contains("File not found: nonExistentFile12345.txt"));
+    }
+
+    @Test
+    public void execute_parentDirectoryReference_rejectsPathOutsideDataDirectory() {
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test.txt");
+
+        new ReadCommand("../AGENTS.md").execute(tasks, ui, storage);
+
+        assertTrue(ui.isError());
+        assertTrue(ui.getRecordedOutput().contains("Please choose a file inside the data directory."));
+        assertFalse(ui.getRecordedOutput().contains("Project context"));
     }
 }

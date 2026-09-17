@@ -61,8 +61,8 @@ public class Parser {
     /**
      * Determines the type of a user command while preserving its original input rules.
      *
-     * @param input command entered by the user
-     * @return the command type, or {@code UNKNOWN} when unsupported
+     * @param input command entered by the user.
+     * @return the command type, or {@code UNKNOWN} when unsupported.
      */
     public static CommandType parseCommandType(String input) {
         if (input.equals("list")) {
@@ -96,9 +96,9 @@ public class Parser {
     /**
      * Returns the trimmed text after a command word.
      *
-     * @param input complete user input
-     * @param command command word at the beginning of the input
-     * @return command arguments, or an empty string when none are provided
+     * @param input complete user input.
+     * @param command command word at the beginning of the input.
+     * @return command arguments, or an empty string when none are provided.
      */
     public static String getArguments(String input, String command) {
         assert input != null : "Input cannot be null";
@@ -110,9 +110,9 @@ public class Parser {
     /**
      * Parses a date or date/time entered by the user.
      *
-     * @param text date or date/time text
-     * @return parsed date/time, using midnight for date-only input
-     * @throws DateTimeParseException if the text is not a supported date format
+     * @param text date or date/time text.
+     * @return parsed date/time, using midnight for date-only input.
+     * @throws DateTimeParseException if the text is not a supported date format.
      */
     public static LocalDateTime parseDateTime(String text) {
         assert text != null : "Date text to parse cannot be null";
@@ -135,9 +135,9 @@ public class Parser {
     /**
      * Checks whether input is exactly a command or starts with that command and a space.
      *
-     * @param input complete user input
-     * @param command command word to check
-     * @return {@code true} when the input begins with the complete command word
+     * @param input complete user input.
+     * @param command command word to check.
+     * @return {@code true} when the input begins with the complete command word.
      */
     private static boolean hasCommandWord(String input, String command) {
         return input.equals(command) || input.startsWith(command + " ");
