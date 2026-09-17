@@ -30,3 +30,11 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+## Acknowledgements
+
+This project was developed with widespread AI assistance by [@josthan12](https://github.com/josthan12) using OpenAI Codex (ChatGPT) and Google Antigravity (Gemini).
+
+These tools were used throughout the iP, including Levels 0–10 and the implemented extensions: A-MoreOOP, A-Packages, A-Gradle, A-JUnit, A-Jar, A-JavaDoc, A-CodingStandard, A-FullCommitMessage, A-Assertions, A-CodeQuality, A-BetterGui, A-BetterPersonality, and A-UserGuide.
+
+AI assistance included planning, Java implementation and refactoring, debugging, Gradle configuration, JUnit tests, JaCoCo coverage checks, GUI styling, Javadoc and coding-standard reviews, feature specifications, user-guide documentation, and image generation. [@josthan12](https://github.com/josthan12) still tested, adapted, and integrated the generated work into this project.

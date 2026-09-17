@@ -206,5 +206,10 @@ Use one of these formats for the `DATE` part of a `deadline` or `event` command:
 
 ## Acknowledgements
 
-- Google Antigravity (Gemini) and OpenAI Codex assisted [@josthan12](https://github.com/josthan12) with implementation, testing, and documentation.
-- `DaShrek.png` and `DaUser.png` were generated using Google Antigravity (Gemini).
+This project was developed with widespread AI assistance by [@josthan12](https://github.com/josthan12) using OpenAI Codex (ChatGPT) and Google Antigravity (Gemini).
+
+These tools were used throughout the iP, including Levels 0–10 and the implemented extensions: A-MoreOOP, A-Packages, A-Gradle, A-JUnit, A-Jar, A-JavaDoc, A-CodingStandard, A-FullCommitMessage, A-Assertions, A-CodeQuality, A-BetterGui, A-BetterPersonality, and A-UserGuide.
+
+AI assistance included planning, Java implementation and refactoring, debugging, Gradle configuration, JUnit tests, JaCoCo coverage checks, GUI styling, Javadoc and coding-standard reviews, feature specifications, user-guide documentation, and image generation. [@josthan12](https://github.com/josthan12) still tested, adapted, and integrated the generated work into this project.
+
+`DaShrek.png` and `DaUser.png` were generated using Google Antigravity (Gemini).
