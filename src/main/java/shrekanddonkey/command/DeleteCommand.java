@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
      *
      * @param tasks application's task list.
      * @param ui application's user interface.
-     * @param storage application's file storage, which is not used.
+     * @param storage application's file storage.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -49,5 +49,9 @@ public class DeleteCommand extends Command {
         }
         ui.showDivider();
     }
-}
 
+    @Override
+    public boolean modifiesTasks() {
+        return true;
+    }
+}

@@ -1,5 +1,8 @@
 package shrekanddonkey;
 
+import java.io.IOException;
+
+import shrekanddonkey.command.Command;
 import shrekanddonkey.command.DeadlineCommand;
 import shrekanddonkey.command.DeleteCommand;
 import shrekanddonkey.command.EventCommand;
@@ -7,11 +10,9 @@ import shrekanddonkey.command.ExitCommand;
 import shrekanddonkey.command.FindCommand;
 import shrekanddonkey.command.ListCommand;
 import shrekanddonkey.command.MarkCommand;
-import shrekanddonkey.command.ReadCommand;
 import shrekanddonkey.command.SortCommand;
 import shrekanddonkey.command.TodoCommand;
 import shrekanddonkey.command.UnmarkCommand;
-import shrekanddonkey.command.WriteCommand;
 import shrekanddonkey.parser.Parser;
 import shrekanddonkey.storage.Storage;
 import shrekanddonkey.task.TaskList;
@@ -29,7 +30,7 @@ public class ShrekAndDonkey {
      * Creates the chatbot application with default storage location.
      */
     public ShrekAndDonkey() {
-        this("./data/happyFile.txt");
+        this(Storage.DEFAULT_FILE_PATH);
     }
 
     /**
@@ -40,7 +41,11 @@ public class ShrekAndDonkey {
     public ShrekAndDonkey(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
-        this.taskList = new TaskList();
+        try {
+            this.taskList = new TaskList(storage.load());
+        } catch (IOException exception) {
+            throw new IllegalStateException("Unable to initialize the task file.", exception);
+        }
         assert this.ui != null : "Ui must be initialized";
         assert this.storage != null : "Storage must be initialized";
         assert this.taskList != null : "TaskList must be initialized";
@@ -65,38 +70,62 @@ public class ShrekAndDonkey {
     public String getResponse(String input) {
         assert input != null : "User input cannot be null";
         ui.clearOutput();
-        Parser.CommandType commandType = Parser.parseCommandType(input);
-        if (commandType == Parser.CommandType.EXIT) {
-            new ExitCommand().execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.LIST) {
-            new ListCommand().execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.MARK) {
-            new MarkCommand(Parser.getArguments(input, "mark")).execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.UNMARK) {
-            new UnmarkCommand(Parser.getArguments(input, "unmark")).execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.TODO) {
-            new TodoCommand(Parser.getArguments(input, "todo")).execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.DEADLINE) {
-            new DeadlineCommand(Parser.getArguments(input, "deadline")).execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.EVENT) {
-            new EventCommand(Parser.getArguments(input, "event")).execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.DELETE) {
-            new DeleteCommand(Parser.getArguments(input, "delete")).execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.FIND) {
-            new FindCommand(Parser.getArguments(input, "find")).execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.SORT) {
-            new SortCommand().execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.WRITE) {
-            new WriteCommand().execute(taskList, ui, storage);
-        } else if (commandType == Parser.CommandType.READ) {
-            new ReadCommand(Parser.getArguments(input, "read")).execute(taskList, ui, storage);
-        } else {
+        Command command = createCommand(input);
+        if (command == null) {
             ui.showError("What are ye doing in my swamp?! Try: list, todo, deadline,"
                     + " event, mark, unmark, delete, find, sort, bye");
+        } else {
+            command.execute(taskList, ui, storage);
+            if (command.modifiesTasks() && !ui.isError()) {
+                saveTasks();
+            }
         }
         String response = ui.getRecordedOutput();
         assert response != null : "Chatbot response cannot be null";
         return response;
+    }
+
+    /**
+     * Creates the command matching the supplied user input.
+     *
+     * @param input message entered by the user.
+     * @return command to execute, or {@code null} when the input is unsupported.
+     */
+    private Command createCommand(String input) {
+        Parser.CommandType commandType = Parser.parseCommandType(input);
+        if (commandType == Parser.CommandType.EXIT) {
+            return new ExitCommand();
+        } else if (commandType == Parser.CommandType.LIST) {
+            return new ListCommand();
+        } else if (commandType == Parser.CommandType.MARK) {
+            return new MarkCommand(Parser.getArguments(input, "mark"));
+        } else if (commandType == Parser.CommandType.UNMARK) {
+            return new UnmarkCommand(Parser.getArguments(input, "unmark"));
+        } else if (commandType == Parser.CommandType.TODO) {
+            return new TodoCommand(Parser.getArguments(input, "todo"));
+        } else if (commandType == Parser.CommandType.DEADLINE) {
+            return new DeadlineCommand(Parser.getArguments(input, "deadline"));
+        } else if (commandType == Parser.CommandType.EVENT) {
+            return new EventCommand(Parser.getArguments(input, "event"));
+        } else if (commandType == Parser.CommandType.DELETE) {
+            return new DeleteCommand(Parser.getArguments(input, "delete"));
+        } else if (commandType == Parser.CommandType.FIND) {
+            return new FindCommand(Parser.getArguments(input, "find"));
+        } else if (commandType == Parser.CommandType.SORT) {
+            return new SortCommand();
+        }
+        return null;
+    }
+
+    /**
+     * Saves the task list after a successful state-changing command.
+     */
+    private void saveTasks() {
+        try {
+            storage.save(taskList.getTasks());
+        } catch (IOException exception) {
+            ui.showError("Unable to save the task file.");
+        }
     }
 
     /**

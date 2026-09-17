@@ -20,6 +20,16 @@ public class TaskList {
     }
 
     /**
+     * Creates a task list containing the supplied tasks in their current order.
+     *
+     * @param tasks tasks to include in this task list.
+     */
+    public TaskList(List<Task> tasks) {
+        assert tasks != null : "Tasks cannot be null";
+        this.tasks = new ArrayList<>(tasks);
+    }
+
+    /**
      * Adds a task to the end of the list.
      *
      * @param task task to add.

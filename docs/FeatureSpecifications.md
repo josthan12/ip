@@ -100,26 +100,16 @@ ShrekAndDonkey is a Shrek-themed task chatbot. Commands are lowercase. Task numb
 - **Output:** Sorts deadlines by deadline date and events by start date. Tasks without dates appear after dated tasks. Tasks with equal dates retain their existing order.
 - **Errors:** None.
 
-## 10. Save Tasks
+## 10. Automatic Task Persistence
 
-- **Feature:** Save Tasks
-- **Purpose:** Writes the current swamp list to storage.
-- **Command format:** `write`
-- **Example:** `write`
-- **Output:** Saves tasks to `data/happyFile.txt`. The `data` directory is created if it does not exist.
-- **Errors:** If the task file cannot be written, the chatbot displays an error message.
+- **Feature:** Automatic Task Persistence
+- **Purpose:** Loads the task list from `data/happyFile.txt` at startup and saves it after every successful change.
+- **Behavior:** Creates the `data` directory and an empty `happyFile.txt` file automatically when they are missing.
+- **Saved commands:** `todo`, `deadline`, `event`, `mark`, `unmark`, `delete`, and `sort`.
+- **Errors:** The application does not start when the existing task file cannot be loaded. It displays an error when a
+  changed task list cannot be saved.
 
-## 11. Read a File
-
-- **Feature:** Read a File
-- **Purpose:** Displays the contents of a text file in the `data` directory.
-- **Command format:** `read FILE_NAME`
-- **Example:** `read happyFile.txt`
-- **Parameters:** `FILE_NAME` must not be blank and is relative to the `data` directory.
-- **Output:** Displays each line in the requested file.
-- **Errors:** A missing file name or unreadable file displays an error message.
-
-## 12. Exit the Application
+## 11. Exit the Application
 
 - **Feature:** Exit the Application
 - **Purpose:** Ends the current ShrekAndDonkey session.

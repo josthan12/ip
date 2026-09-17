@@ -24,6 +24,15 @@ public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
+     * Returns whether a successful execution changes the task list and must be persisted.
+     *
+     * @return {@code true} when the command changes tasks.
+     */
+    public boolean modifiesTasks() {
+        return false;
+    }
+
+    /**
      * Indicates whether this command ends the chatbot session.
      *
      * @return {@code true} only for the exit command.
@@ -32,4 +41,3 @@ public abstract class Command {
         return false;
     }
 }
-

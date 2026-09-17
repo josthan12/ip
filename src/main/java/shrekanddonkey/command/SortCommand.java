@@ -24,4 +24,9 @@ public class SortCommand extends Command {
         ui.showTaskList(tasks.getTasks());
         ui.showDivider();
     }
+
+    @Override
+    public boolean modifiesTasks() {
+        return true;
+    }
 }

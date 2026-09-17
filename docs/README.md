@@ -2,7 +2,7 @@
 
 ShrekAndDonkey is a Shrek-themed task chatbot that helps you keep track of to-dos, deadlines, and events. Type a command in the input box and select **Send** (or press Enter) to manage your swamp list.
 
-![ShrekAndDonkey GUI showing task creation and file-reading commands.](Ui.png)
+![ShrekAndDonkey GUI showing task creation and task management commands.](Ui.png)
 
 ## Quick Start
 
@@ -140,31 +140,13 @@ Sorts deadline and event tasks by date. To-dos, which have no date, appear after
 sort
 ```
 
-### Saving tasks: `write`
+### Automatic saving
 
-Saves the current swamp list to `data/happyFile.txt`. The `data` directory is created automatically when needed.
+ShrekAndDonkey loads tasks from `data/happyFile.txt` when it starts. If the `data` directory or task file is missing,
+it creates an empty task file automatically.
 
-**Format:** `write`
-
-**Example:**
-
-```text
-write
-```
-
-### Reading a file: `read`
-
-Displays the contents of a file in the `data` directory. The file name must be supplied without the `data/` prefix.
-
-**Format:** `read FILE_NAME`
-
-**Example:**
-
-```text
-read happyFile.txt
-```
-
-If the file does not exist, ShrekAndDonkey displays an error message.
+Every successful command that changes the list (`todo`, `deadline`, `event`, `mark`, `unmark`, `delete`, or `sort`)
+saves the updated list immediately. You do not need to run a separate save or read command.
 
 ### Exiting the application: `bye`
 
@@ -200,8 +182,6 @@ Use one of these formats for the `DATE` part of a `deadline` or `event` command:
 | `delete N` | Deletes task `N`. |
 | `find KEYWORD` | Displays tasks matching a keyword. |
 | `sort` | Sorts dated tasks by date. |
-| `write` | Saves tasks to `data/happyFile.txt`. |
-| `read FILE_NAME` | Displays a file from the `data` directory. |
 | `bye` | Exits the application. |
 
 ## Acknowledgements

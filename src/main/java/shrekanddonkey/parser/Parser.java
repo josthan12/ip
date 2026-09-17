@@ -38,10 +38,6 @@ public class Parser {
         FIND,
         /** Sorts tasks by their relevant date. */
         SORT,
-        /** Saves tasks to storage. */
-        WRITE,
-        /** Reads a file. */
-        READ,
         /** Exits the chatbot. */
         EXIT,
         /** Represents an unsupported command. */
@@ -83,10 +79,6 @@ public class Parser {
             return CommandType.FIND;
         } else if (input.equals("sort")) {
             return CommandType.SORT;
-        } else if (input.equals("write")) {
-            return CommandType.WRITE;
-        } else if (hasCommandWord(input, "read")) {
-            return CommandType.READ;
         } else if (input.equals("bye")) {
             return CommandType.EXIT;
         }

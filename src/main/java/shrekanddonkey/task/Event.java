@@ -41,6 +41,15 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the event end date and time.
+     *
+     * @return event end date and time.
+     */
+    public LocalDateTime getTo() {
+        return to;
+    }
+
+    /**
      * Returns this task with its event type marker and timing text.
      *
      * @return formatted event text.
