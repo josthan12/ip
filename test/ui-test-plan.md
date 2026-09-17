@@ -38,38 +38,31 @@ ____________________________________________________________
 Grrr GET OUT OF MY SWAMP! Ohh, I didn't see you there stranger! I'm ShrekAndDonkey.
 What can I do for you?
 ____________________________________________________________
-____________________________________________________________
- Got it. I've added this task:
+ Alright, added to the swamp list:
    [T][ ] first
- Now you have 1 tasks in the list.
+ Now ye have 1 tasks in the swamp.
 ____________________________________________________________
-____________________________________________________________
- Got it. I've added this task:
+ Alright, added to the swamp list:
    [T][ ] second
- Now you have 2 tasks in the list.
+ Now ye have 2 tasks in the swamp.
 ____________________________________________________________
-____________________________________________________________
- Got it. I've added this task:
+ Alright, added to the swamp list:
    [T][ ] third
- Now you have 3 tasks in the list.
+ Now ye have 3 tasks in the swamp.
 ____________________________________________________________
-____________________________________________________________
- Noted. I've removed this task:
+ Poof! Banished from the swamp:
    [T][ ] first
- Now you have 2 tasks in the list.
+ Now ye have 2 tasks in the swamp.
 ____________________________________________________________
-____________________________________________________________
- Noted. I've removed this task:
+ Poof! Banished from the swamp:
    [T][ ] third
- Now you have 1 tasks in the list.
+ Now ye have 1 tasks in the swamp.
 ____________________________________________________________
-____________________________________________________________
- Noted. I've removed this task:
+ Poof! Banished from the swamp:
    [T][ ] second
- Now you have 0 tasks in the list.
+ Now ye have 0 tasks in the swamp.
 ____________________________________________________________
-____________________________________________________________
- Here are the tasks in your list:
+ Here's what's lurkin' in the swamp:
 ____________________________________________________________
 ____________________________________________________________
 FEE FIE FOE FUMP. GET OUT OF MY SWAMP!
@@ -99,11 +92,9 @@ ____________________________________________________________
 Grrr GET OUT OF MY SWAMP! Ohh, I didn't see you there stranger! I'm ShrekAndDonkey.
 What can I do for you?
 ____________________________________________________________
+ That's not a number! Use: delete N
 ____________________________________________________________
- Please enter a valid task number after 'delete'.
-____________________________________________________________
-____________________________________________________________
- Please enter a task number from 1 to 0.
+ Pick a number from 1 to 0, not that hard!
 ____________________________________________________________
 ____________________________________________________________
 FEE FIE FOE FUMP. GET OUT OF MY SWAMP!
@@ -139,40 +130,32 @@ ____________________________________________________________
 Grrr GET OUT OF MY SWAMP! Ohh, I didn't see you there stranger! I'm ShrekAndDonkey.
 What can I do for you?
 ____________________________________________________________
-____________________________________________________________
- Got it. I've added this task:
+ Alright, added to the swamp list:
    [T][ ] read book
- Now you have 1 tasks in the list.
+ Now ye have 1 tasks in the swamp.
 ____________________________________________________________
-____________________________________________________________
- Got it. I've added this task:
+ Alright, added to the swamp list:
    [T][ ] return book
- Now you have 2 tasks in the list.
+ Now ye have 2 tasks in the swamp.
 ____________________________________________________________
-____________________________________________________________
- Got it. I've added this task:
+ Alright, added to the swamp list:
    [T][ ] buy movie
- Now you have 3 tasks in the list.
+ Now ye have 3 tasks in the swamp.
 ____________________________________________________________
-____________________________________________________________
- Nice! I've marked this task as done:
+ Shrek approves! Marked as done:
    [T][X] read book
 ____________________________________________________________
-____________________________________________________________
- Nice! I've marked this task as done:
+ Shrek approves! Marked as done:
    [T][X] return book
 ____________________________________________________________
-____________________________________________________________
- Here are the matching tasks in your list:
+ Donkey found these in the swamp:
  1.[T][X] read book
  2.[T][X] return book
 ____________________________________________________________
-____________________________________________________________
- Here are the matching tasks in your list:
+ Donkey found these in the swamp:
  1.[T][ ] buy movie
 ____________________________________________________________
-____________________________________________________________
- Here are the matching tasks in your list:
+ Donkey found these in the swamp:
 ____________________________________________________________
 ____________________________________________________________
 FEE FIE FOE FUMP. GET OUT OF MY SWAMP!

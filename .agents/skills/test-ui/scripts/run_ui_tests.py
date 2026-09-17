@@ -8,7 +8,6 @@ import difflib
 import re
 import subprocess
 import sys
-import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -158,7 +157,7 @@ def print_failure(case: UiTestCase, actual: str, stderr: str, reason: str) -> No
 
 
 def run_tests(plan_path: Path) -> int:
-    """Compile the project, then execute test cases until completion or failure."""
+    """Build the project with Gradle, then execute test cases until completion or failure."""
     repository = Path.cwd().resolve()
     plan_path = plan_path.resolve()
     ensure_within_repository(plan_path, repository, "test plan")
@@ -173,17 +172,16 @@ def run_tests(plan_path: Path) -> int:
 
     if timeout_seconds <= 0:
         raise ValueError("Timeout seconds must be positive")
-    sources = sorted(source_directory.rglob("*.java"))
-    if not sources:
+    if not any(source_directory.rglob("*.java")):
         raise ValueError(f"no Java source files found under {source_directory}")
 
     require_java_version(java_version)
-    temp_root = repository / "_temp"
-    temp_root.mkdir(parents=True, exist_ok=True)
+    gradle_wrapper = repository / ("gradlew.bat" if sys.platform == "win32" else "gradlew")
+    if not gradle_wrapper.is_file():
+        raise RuntimeError(f"Gradle wrapper was not found: {gradle_wrapper}")
 
-    with tempfile.TemporaryDirectory(prefix="ui-test-", dir=temp_root) as build_directory:
-        compile_result = subprocess.run(
-            ["javac", "-d", build_directory, *map(str, sources)],
+    compile_result = subprocess.run(
+            [str(gradle_wrapper), "--console=plain", "classes"],
             cwd=repository,
             capture_output=True,
             text=True,
@@ -191,59 +189,63 @@ def run_tests(plan_path: Path) -> int:
             errors="replace",
             check=False,
         )
-        if compile_result.returncode != 0:
-            print("UI test session terminated: compilation failed.")
-            print_block(
-                "Compiler output",
-                normalize_line_endings(compile_result.stdout + compile_result.stderr),
+    if compile_result.returncode != 0:
+        print("UI test session terminated: Gradle compilation failed.")
+        print_block(
+            "Compiler output",
+            normalize_line_endings(compile_result.stdout + compile_result.stderr),
+        )
+        return 2
+
+    build_directory = repository / "build" / "classes" / "java" / "main"
+    if not build_directory.is_dir():
+        raise RuntimeError(f"Gradle did not produce application classes: {build_directory}")
+
+    for case in test_cases:
+        standard_input = normalize_line_endings(case.inputs)
+        if standard_input and not standard_input.endswith("\n"):
+            standard_input += "\n"
+        try:
+            result = subprocess.run(
+                ["java", "-cp", str(build_directory), main_class],
+                cwd=repository,
+                input=standard_input,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                timeout=timeout_seconds,
+                check=False,
             )
-            return 2
+        except subprocess.TimeoutExpired as error:
+            actual = normalize_line_endings(error.stdout or "")
+            stderr = normalize_line_endings(error.stderr or "")
+            print_failure(
+                case,
+                actual,
+                stderr,
+                f"timed out after {timeout_seconds:g} seconds",
+            )
+            print("UI test session terminated after the first failure.")
+            return 1
 
-        for case in test_cases:
-            standard_input = normalize_line_endings(case.inputs)
-            if standard_input and not standard_input.endswith("\n"):
-                standard_input += "\n"
-            try:
-                result = subprocess.run(
-                    ["java", "-cp", build_directory, main_class],
-                    cwd=repository,
-                    input=standard_input,
-                    capture_output=True,
-                    text=True,
-                    encoding="utf-8",
-                    errors="replace",
-                    timeout=timeout_seconds,
-                    check=False,
-                )
-            except subprocess.TimeoutExpired as error:
-                actual = normalize_line_endings(error.stdout or "")
-                stderr = normalize_line_endings(error.stderr or "")
-                print_failure(
-                    case,
-                    actual,
-                    stderr,
-                    f"timed out after {timeout_seconds:g} seconds",
-                )
-                print("UI test session terminated after the first failure.")
-                return 1
+        actual = normalize_line_endings(result.stdout)
+        expected = normalize_line_endings(case.expected_output)
+        stderr = normalize_line_endings(result.stderr)
+        if result.returncode != 0 or actual != expected:
+            reason = (
+                f"program exited with status {result.returncode}"
+                if result.returncode != 0
+                else "actual output did not match expected output"
+            )
+            print_failure(case, actual, stderr, reason)
+            print("UI test session terminated after the first failure.")
+            return 1
 
-            actual = normalize_line_endings(result.stdout)
-            expected = normalize_line_endings(case.expected_output)
-            stderr = normalize_line_endings(result.stderr)
-            if result.returncode != 0 or actual != expected:
-                reason = (
-                    f"program exited with status {result.returncode}"
-                    if result.returncode != 0
-                    else "actual output did not match expected output"
-                )
-                print_failure(case, actual, stderr, reason)
-                print("UI test session terminated after the first failure.")
-                return 1
-
-            print(f"=== PASSED {case.identifier}: {case.title} ===")
-            print(f"Aim: {case.aim}")
-            print_block("Console input", standard_input)
-            print_block("Console output", actual)
+        print(f"=== PASSED {case.identifier}: {case.title} ===")
+        print(f"Aim: {case.aim}")
+        print_block("Console input", standard_input)
+        print_block("Console output", actual)
 
     print(f"UI test session passed: {len(test_cases)} case(s).")
     return 0
