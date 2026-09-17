@@ -30,7 +30,7 @@ public class ShrekAndDonkey {
      * Creates the chatbot application with default storage location.
      */
     public ShrekAndDonkey() {
-        this(Storage.DEFAULT_FILE_PATH);
+        this(new Storage());
     }
 
     /**
@@ -39,8 +39,17 @@ public class ShrekAndDonkey {
      * @param filePath path to the file used for task persistence.
      */
     public ShrekAndDonkey(String filePath) {
+        this(new Storage(filePath));
+    }
+
+    /**
+     * Creates the chatbot application using the supplied storage.
+     *
+     * @param storage storage used for task persistence.
+     */
+    private ShrekAndDonkey(Storage storage) {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = storage;
         try {
             this.taskList = new TaskList(storage.load());
         } catch (IOException exception) {

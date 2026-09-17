@@ -22,7 +22,7 @@ import shrekanddonkey.task.Todo;
  */
 public class Storage {
     /** Default location of the task data file. */
-    public static final String DEFAULT_FILE_PATH = "data/happyFile.txt";
+    public static final Path DEFAULT_FILE_PATH = Path.of("data", "happyFile.txt");
 
     private static final String FIELD_SEPARATOR = " | ";
     private static final DateTimeFormatter LEGACY_DATE_TIME_FORMATTER =
@@ -48,8 +48,17 @@ public class Storage {
      * @param filePath path of the task file.
      */
     public Storage(String filePath) {
+        this(Path.of(filePath));
+    }
+
+    /**
+     * Creates storage backed by the given file path.
+     *
+     * @param filePath path of the task file.
+     */
+    private Storage(Path filePath) {
         assert filePath != null : "Storage file path cannot be null";
-        this.filePath = Path.of(filePath);
+        this.filePath = filePath;
     }
 
     /**
